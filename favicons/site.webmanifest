@@ -1,0 +1,14 @@
+{
+    "name": "Filmoteka",
+    "short_name": "Filmoteka",
+    "icons": [
+        {
+            "src": "./android-chrome-48x48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#b92f2c",
+    "background_color": "#b92f2c",
+    "display": "standalone"
+}
