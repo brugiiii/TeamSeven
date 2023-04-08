@@ -1,2 +1,5 @@
-@import './common';
-@import './example';
+@import './base/common';
+@import './base/variables';
+@import './base/buttons';
+@import './layout/pageHeader';
+@import './layout/pageFooter';
