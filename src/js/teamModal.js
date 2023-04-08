@@ -5,12 +5,14 @@ const refs = {
 };
 
 refs.closeBtn.addEventListener('click', onCloseBtn);
-refs.openBtn.addEventListener('click', onOpenModal);
+refs.openBtn.addEventListener('click', onOpenBtn);
 
 function onCloseBtn() {
   refs.backdropEl.classList.add('is-hidden');
 }
 
-function onOpenModal() {
+function onOpenBtn(e) {
+  e.preventDefault();
+
   refs.backdropEl.classList.remove('is-hidden');
 }
