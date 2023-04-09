@@ -1,12 +1,16 @@
 {{#each this}}
-    <img src="{{ movie.image_url }}" class="card-img-top" alt="{{ movie.title }}">
+    <div class="card-img">
+        <img src="{{ movie.image_url }}" class="card-img-top" alt="{{ movie.title }}">
+    </div> 
     <div class="card-body">
-        <h5 class="card-title">{{ movie.title }}</h5>
-        <p class="card-text" class="text-muted">{{ movie.genres.join}}</class=></p>
-        <p class="card-text" class="text-muted">{{ movie.release_year }}</class=></p>
+
+        <p class="card-title">{{ movie.title }}</p>
+        <p class="card-text">{{ movie.genres.join(', ') }} | {{ movie.release_year }}</p>
+
     </div>
 </div>
 {{/each}}
+
 
 {{!-- 
 movie.image_url - URL-адреса зображення фільму
