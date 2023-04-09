@@ -3,12 +3,13 @@
         <img src="{{ movie.image_url }}" class="card-img-top" alt="{{ movie.title }}">
     </div> 
     <div class="card-body">
+
         <p class="card-title">{{ movie.title }}</p>
         <p class="card-text">{{ movie.genres.join(', ') }} | {{ movie.release_year }}</p>
+
     </div>
 </div>
 {{/each}}
-
 
 
 {{!-- 

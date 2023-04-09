@@ -10,18 +10,16 @@ refs.openBtn.addEventListener('click', onOpenBtn);
 
 function onOpenBtn(e) {
   e.preventDefault();
+  refs.backdropEl.classList.remove('is-hidden');
 
   refs.bodyEl.addEventListener('keydown', onEscBtn);
-  // refs.bodyEl.addEventListener('click', onBackdrop);
-
-  refs.backdropEl.classList.remove('is-hidden');
+  refs.bodyEl.addEventListener('click', onBackdrop);
 }
 
 function onBackdrop(e) {
-  if (e.target.tagName !== 'IMG') {
+  if (e.target.tagName !== 'IMG' && e.target.tagName !== 'A') {
     closeModal();
   }
-  console.log(e);
 }
 
 function onEscBtn(e) {
