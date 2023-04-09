@@ -1,0 +1,26 @@
+{{#each this}}
+    <img src="{{ movie.image_url }}" class="card-img-top" alt="{{ movie.title }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text" class="text-muted">{{ movie.genres.join(', ') }}</class=></p>
+        <p class="card-text" class="text-muted">{{ movie.release_year }}</class=></p>
+    </div>
+</div>
+{{/each}}
+
+
+const source = document.getElementById('cardTemplate').innerHTML;
+const template = Handlebars.compile(source);
+
+const moviesContainer = document.getElementById('container');
+container.innerHTML = template({ movies });
+
+
+{{!-- 
+movie.image_url - URL-адреса зображення фільму
+movie.title - назва фільму
+movie.description - опис фільму
+movie.genres - масив жанрів фільму
+movie.release_year - рік випуску фільму
+Якщо змінні у даних фільму мають інші назви, то їх можна замінити в шаблоні на відповідні назви. --}}
+
