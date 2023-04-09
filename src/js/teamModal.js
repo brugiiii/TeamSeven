@@ -2,17 +2,36 @@ const refs = {
   closeBtn: document.querySelector('.teamModal__closeBtn'),
   openBtn: document.querySelector('.team-text__link'),
   backdropEl: document.querySelector('.backdrop'),
+  bodyEl: document.querySelector('body'),
 };
 
-refs.closeBtn.addEventListener('click', onCloseBtn);
+refs.closeBtn.addEventListener('click', closeModal);
 refs.openBtn.addEventListener('click', onOpenBtn);
-
-function onCloseBtn() {
-  refs.backdropEl.classList.add('is-hidden');
-}
 
 function onOpenBtn(e) {
   e.preventDefault();
 
+  refs.bodyEl.addEventListener('keydown', onEscBtn);
+  // refs.bodyEl.addEventListener('click', onBackdrop);
+
   refs.backdropEl.classList.remove('is-hidden');
+}
+
+function onBackdrop(e) {
+  if (e.target.tagName !== 'IMG') {
+    closeModal();
+  }
+  console.log(e);
+}
+
+function onEscBtn(e) {
+  if (e.code === 'Escape') {
+    closeModal();
+
+    refs.bodyEl.removeEventListener('keydown', closeModalByEscBtn);
+  }
+}
+
+function closeModal() {
+  refs.backdropEl.classList.add('is-hidden');
 }
