@@ -1,0 +1,45 @@
+<div class='backdrop'>
+  <div class='modal'>
+    <button class='modal-button'>
+      <svg class='icon-close'>
+        <use href='./images/sprite.svg#icon-close'></use>
+      </svg>
+    </button>
+    <div class='modal-content'>
+      <div class='modal-left'>
+        <div class='modal-content__image'>
+          <img src='{{image}}' alt='{{title}}' />
+        </div>
+      </div>
+      <div class='modal-right'>
+        <div class='modal-content__info'>
+          <p class='modal-content__name'>{{name}}</p>
+          <ul class='modal-list'>
+            <li class='modal-list__item'>
+              <p>Vote/Votes</p>
+              <p>Popularity</p>
+              <p>Original Title</p>
+              <p>Genre</p>
+            </li>
+            <li class='modal-list__item'>
+              <p><span>{{vote}}</span> / {{votes}}</p>
+              <p>{{popularity}}</p>
+              <p>{{title}}</p>
+              <p>{{genre}}</p>
+            </li>
+          </ul>
+        </div>
+        <div class='modal-content__about'>
+          <p>ABOUT</p>
+          <p>
+            {{about}}
+          </p>
+        </div>
+        <div class='modal-content__buttons'>
+          <button class='button modal-button__primary'>Add To Watched</button>
+          <button class='button modal-button__secondary'>Add To Queue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
