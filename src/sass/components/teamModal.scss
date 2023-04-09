@@ -1,0 +1,38 @@
+.backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  max-width: 720px;
+  margin-inline: auto;
+  grid-gap: 1rem;
+}
+
+.grid-wrapper .item {
+  aspect-ratio: 1/1;
+  background-color: #aaa;
+  box-sizing: content-box;
+  position: relative;
+  border-radius: 100%;
+  overflow: hidden;
+  z-index: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.item {
+  margin: 0;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
+  }
+}
+
+.close-icon {
+  fill: inherit;
+}
