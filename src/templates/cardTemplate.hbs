@@ -8,14 +8,6 @@
 </div>
 {{/each}}
 
-
-const source = document.getElementById('cardTemplate').innerHTML;
-const template = Handlebars.compile(source);
-
-const moviesContainer = document.getElementById('container');
-container.innerHTML = template({ movies });
-
-
 {{!-- 
 movie.image_url - URL-адреса зображення фільму
 movie.title - назва фільму
