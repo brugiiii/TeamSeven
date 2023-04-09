@@ -6,4 +6,5 @@ function showLoader() {
     </div>`;
   mainEl.insertAdjacentHTML('afterbegin', markUpLoader);
 }
-showLoader();
+
+// showLoader();
