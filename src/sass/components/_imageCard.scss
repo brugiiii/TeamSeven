@@ -1,86 +1,93 @@
 .card-img {
-    overflow: hidden;
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-
-
-    .card-img img {
-        height: 100%;
-        width: 100%;
-    }
-
-
-    .card-img {
-        overflow: hidden;
-        border-radius: 5px;
-    }
-
-
-
-
-        .card-img img {
-            height: 100%;
-            width: 100%;
-        }
-
-
-.card-img-top{
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
-
-
-.card-body {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.16;
-    padding-top: 10px;
-    color: #B92F2C;
+.card-img img {
+  height: 402px;
+  width: 280px;
 }
 
 @media screen and (min-width: 768px) {
-    .card-body {
-        line-height: 1.33;
-        padding-top: 8px;
-    }
+  .card-img img {
+    height: 455px;
+    width: 336px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
-    .card-body {
-        font-size: 20px;
-        line-height: 1.2;
-        padding-top: 12px;
-    }
+  .card-img img {
+    height: 574px;
+    width: 395px;
+  }
 }
 
-    .card-body {
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 1.16;
-        padding-top: 10px;
-        color: #B92F2C;
-    }
+.card-img {
+  overflow: hidden;
+  border-radius: 5px;
+}
 
-    @media screen and (min-width: 768px) {
-        .card-body {
-            line-height: 1.33;
-            padding-top: 8px;
-        }
-    }
+.card-img img {
+  height: 100%;
+  width: 100%;
+}
 
-    @media screen and (min-width: 1280px) {
-        .card-body {
-            font-size: 20px;
-            line-height: 1.2;
-            padding-top: 12px;
-        }
-    }
+.card-img-top {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.card-body {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  padding-top: 10px;
+  color: $date-film-color;
+}
+
+@media screen and (min-width: 768px) {
+  .card-body {
+    line-height: 1.33;
+    padding-top: 8px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .card-body {
+    font-size: 20px;
+    line-height: 1.2;
+    padding-top: 12px;
+  }
+}
+
+.card-body {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  padding-top: 10px;
+  color: $date-film-color;
+}
+
+@media screen and (min-width: 768px) {
+  .card-body {
+    line-height: 1.33;
+    padding-top: 8px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .card-body {
+    font-size: 20px;
+    line-height: 1.2;
+    padding-top: 12px;
+  }
+}
 
 .card-title {
-    color: rgba(0, 0, 0, 1);
-    text-transform: uppercase;
+  color: $current-black-color;
+  text-transform: uppercase;
+  margin-bottom: 0;
 }
