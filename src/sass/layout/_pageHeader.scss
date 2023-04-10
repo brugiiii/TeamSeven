@@ -146,6 +146,7 @@
   width: 87px;
   height: 34px;
   margin-right: 4px;
+  
 
   border: transparent;
   cursor: pointer;
@@ -154,9 +155,11 @@
   background: #000000;
 
   @media screen and (min-width: 768px) {
+    
     width: 83px;
     height: 38px;
     margin-right: 4px;
+    padding: 0;
   }
 
   @media screen and (min-width: 1280px) {
@@ -184,6 +187,7 @@
   @media screen and (min-width: 768px) {
     width: 109px;
     height: 38px;
+    padding: 0;
   }
 
   @media screen and (min-width: 1280px) {
@@ -260,7 +264,7 @@
 
   font-weight: 400;
   line-height: calc(12 / 14);
-
+  
   color: #000000;
 
   @media screen and (min-width: 768px) {
