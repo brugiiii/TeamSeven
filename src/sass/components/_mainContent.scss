@@ -10,7 +10,8 @@
   }
 
   @media screen and(min-width:1280px) {
-    gap: 16px;
+    column-gap: 16px;
+    row-gap: 32px;
 
     padding-bottom: 60px;
   }

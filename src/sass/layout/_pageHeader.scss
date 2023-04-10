@@ -146,16 +146,14 @@
   width: 87px;
   height: 34px;
   margin-right: 4px;
-  
 
   border: transparent;
   cursor: pointer;
 
-  color: #ffffff;
-  background: #000000;
+  color: #000000;
+  background-color: #ffffff;
 
   @media screen and (min-width: 768px) {
-    
     width: 83px;
     height: 38px;
     margin-right: 4px;
@@ -196,6 +194,10 @@
     height: 42px;
   }
 }
+.button.accent-btn {
+  color: #ffffff;
+  background-color: #000000;
+}
 
 .header__search {
   display: flex;
@@ -220,7 +222,6 @@
 }
 
 .header__search-input {
-
   padding-left: 14px;
 
   border-radius: 100px;
@@ -248,7 +249,6 @@
 
   width: 45px;
   padding: 7px;
-  
 
   cursor: pointer;
   background-color: #ffffff;
@@ -264,7 +264,7 @@
 
   font-weight: 400;
   line-height: calc(12 / 14);
-  
+
   color: #000000;
 
   @media screen and (min-width: 768px) {
@@ -357,12 +357,11 @@
   margin-bottom: 0;
 
   width: 150px;
-  
+
   font-weight: 500;
   font-size: 32px;
   line-height: calc(32 / 38);
   color: #ffffff;
-
 
   @media screen and (min-width: 768px) {
     font-size: 40px;
