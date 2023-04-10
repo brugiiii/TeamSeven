@@ -1,22 +1,13 @@
 {{#each this}}
     <div class="card-img">
-        <img src="{{ movie.image_url }}" class="card-img-top" alt="{{ movie.title }}">
+        <img src="https://image.tmdb.org/t/p/w500{{ poster_path }}" class="card-img-top" alt="{{ original_title }}">
     </div> 
     <div class="card-body">
-
-        <p class="card-title">{{ movie.title }}</p>
-        <p class="card-text">{{ movie.genres.join(', ') }} | {{ movie.release_year }}</p>
-
+        <p class="card-title">{{ original_title }}</p>
+        <p class="card-text">{{ genres_ids }} | {{ release_date }}</p>
     </div>
 </div>
 {{/each}}
 
 
-{{!-- 
-movie.image_url - URL-адреса зображення фільму
-movie.title - назва фільму
-movie.description - опис фільму
-movie.genres - масив жанрів фільму
-movie.release_year - рік випуску фільму
-Якщо змінні у даних фільму мають інші назви, то їх можна замінити в шаблоні на відповідні назви. --}}
 

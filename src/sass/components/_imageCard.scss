@@ -1,20 +1,11 @@
 .card-img {
     overflow: hidden;
     border-radius: 5px;
-    height: 402px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
-@media screen and (min-width: 768px) {
-    .card-img {
-        height: 455px;
-    }
-}
 
-@media screen and (min-width: 1280px) {
-    .card-img {
-        height: 574px;
-    }
-}
 
     .card-img img {
         height: 100%;
@@ -25,20 +16,8 @@
     .card-img {
         overflow: hidden;
         border-radius: 5px;
-        height: 402px;
     }
 
-    @media screen and (min-width: 768px) {
-        .card-img {
-            height: 455px;
-        }
-    }
-
-    @media screen and (min-width: 1280px) {
-        .card-img {
-            height: 574px;
-        }
-    }
 
 
 
@@ -102,6 +81,6 @@
     }
 
 .card-title {
-    color: #0000;
+    color: rgba(0, 0, 0, 1);
     text-transform: uppercase;
 }

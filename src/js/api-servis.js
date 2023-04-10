@@ -1,6 +1,7 @@
 const BASE_URL = `https://api.themoviedb.org/3`;
 const KEY = `0d7a3e0f2906a3f05e73804ba320517e`;
 
+
 export default class NewApiService {
   constructor() {
     this.searchQuery = '';
