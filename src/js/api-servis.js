@@ -37,7 +37,7 @@ async fetchPopularMoviesPages() {
 
 
 async fetchSearchMoviesPages() {
-    const url = `${BASE_URL}/search/movie?api_key=${KEY}{this.page}&query=${this.searchQuery}`;
+    const url = `${BASE_URL}/search/movie?api_key=${KEY}&page=${this.page}&query=${this.searchQuery}`;
     
     const response = await fetch(url);
     const result = await response.json();
