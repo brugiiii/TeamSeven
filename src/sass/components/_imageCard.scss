@@ -2,6 +2,10 @@
   overflow: hidden;
   border-radius: 5px;
   margin-bottom: 10px;
+
+  & img {
+    height: 592px;
+  }
 }
 
 .card-item {
@@ -38,12 +42,16 @@
   .card-body {
     font-size: 20px;
     line-height: 1.2;
+    font-weight: 500;
   }
 }
 
 .card-title {
   color: rgba(0, 0, 0, 1);
+
   text-transform: uppercase;
+  font-weight: inherit;
+  margin-bottom: 0;
 }
 
 .card-text {
