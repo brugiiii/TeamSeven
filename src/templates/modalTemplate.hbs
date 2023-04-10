@@ -8,12 +8,12 @@
     <div class='modal-content'>
       <div class='modal-left'>
         <div class='modal-content__image'>
-          <img src='{{image}}' alt='{{title}}' />
+          <img src='https://image.tmdb.org/t/p/w500{{ backdrop_path }}' alt='{{ original_title }}' />
         </div>
       </div>
       <div class='modal-right'>
         <div class='modal-content__info'>
-          <p class='modal-content__name'>{{name}}</p>
+          <p class='modal-content__name'>{{ original_title }}</p>
           <ul class='modal-list'>
             <li class='modal-list__item'>
               <p>Vote/Votes</p>
@@ -22,17 +22,17 @@
               <p>Genre</p>
             </li>
             <li class='modal-list__item'>
-              <p><span>{{vote}}</span> / {{votes}}</p>
-              <p>{{popularity}}</p>
-              <p>{{title}}</p>
-              <p>{{genre}}</p>
+              <p><span>{{ vote_average }}</span> / {{ vote_count }}</p>
+              <p>{{ popularity }}</p>
+              <p>{{ original_title }}</p>
+              <p>{{ genre_ids }}</p>
             </li>
           </ul>
         </div>
         <div class='modal-content__about'>
           <p>ABOUT</p>
           <p>
-            {{about}}
+            {{ overview }}
           </p>
         </div>
         <div class='modal-content__buttons'>
