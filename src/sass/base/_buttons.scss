@@ -90,3 +90,69 @@
   color: #ffffff;
   background-color: #000000;
 }
+
+
+/// LIBRARY ///
+
+
+.library__btn-watched {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+  width: 102px;
+  height: 34px;
+
+  text-transform: uppercase;
+  cursor: pointer;
+
+  color: #b92f2c;
+  background: #ffffff;
+
+  @media screen and (min-width: 768px) {
+    width: 102px;
+    height: 38px;
+    margin-right: 4px;
+
+  }
+
+  @media screen and (min-width: 1280px) {
+    font-size: 12px;
+    width: 120px;
+    height: 42px;
+    margin-right: 8px;
+  }
+}
+
+.library__btn-queue {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+  width: 86px;
+  height: 34px;
+
+  text-transform: uppercase;
+  cursor: pointer;
+
+  color: #ffffff;
+  background: #b92f2c;
+
+  @media screen and (min-width: 768px) {
+    width: 86px;
+    height: 38px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    font-size: 12px;
+    width: 86px;
+    height: 42px;
+  }
+}
+
+// .button.accent2-btn {
+//   color: #ffffff;
+//   background-color: #b92f2c;
+// }
