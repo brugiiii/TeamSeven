@@ -99,27 +99,26 @@ function renderPagination(page, total, now) {
 
 
 //add class active for <li> не працює
-    const liElItem = document.querySelectorAll(".pagination__btn");
-    //console.log(liElItem);
-    
-    let currentPage = page;
-    //console.log(currentPage);
-  
-    if (page === currentPage) {
-      liElItem.classList.add('pagination__item-active');
-      
-      liElItem.addEventListener('click', () => {
-            
-      renderPagination(); 
+   
+ /* let currentItemLi = document.querySelector('.pagination__btn-active');
+      console.log(currentItemLi); */
 
-      let currentItemLi = document.querySelector('.pagination__btn-active');
-      console.log(currentItemLi);
-  
-      currentItemLi.classList.remove('pagination__btn-active');
-  
-      liElItem.classList.add('pagination__btn-active');
-    }); }
-       
+      let liElItem = document.querySelector(".pagination__btn");
+      console.log(liElItem);
+      let currentPage = page;
+
+    liElItem.addEventListener('click', () => {
+      if (page === currentPage){
+      liElItem.classList.add('pagination__btn-active');  }    
+      
+      renderPagination(markup); 
+
+      if (liElItem.classList.contains('pagination__btn-active')){
+      liElItem.classList.remove('pagination__btn-active');
+       }
+    }); 
+
+      
  //лічильник який маэ переключати номерацію при кліку на <>
 const pageBtnArrow = document.querySelector('button');
   pageMain.addEventListener('click', () => {

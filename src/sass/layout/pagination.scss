@@ -70,9 +70,7 @@
   } 
 };
 
-.pagination__points,
-.pagination__first,
-.pagination__last {
+.pagination__points{
   @media screen and (max-width : 768px) {
     display: none;
   }
