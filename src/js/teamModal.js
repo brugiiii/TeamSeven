@@ -14,6 +14,7 @@ function onOpenBtn(e) {
 
   refs.bodyEl.addEventListener('keydown', onEscBtn);
   refs.bodyEl.addEventListener('click', onBackdrop);
+  refs.bodyEl.style.overflow = 'hidden';
 }
 
 function onBackdrop(e) {
@@ -32,4 +33,5 @@ function onEscBtn(e) {
 
 function closeModal() {
   refs.backdropEl.classList.add('is-hidden');
+  refs.bodyEl.style.overflow = 'visible';
 }

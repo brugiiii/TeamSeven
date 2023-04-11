@@ -9,6 +9,7 @@ function onClick(evt) {
   if (evt.target.nodeName !== 'IMG') {
     return;
   }
+
   const idDatas = evt.target.closest('.card-item');
   const idValue = idDatas.dataset.action;
 
