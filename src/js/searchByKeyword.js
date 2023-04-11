@@ -1,7 +1,7 @@
 import apiServer from './api-servis';
 import searchRenderBox from '../templates/searchRenger.hbs'
 const apiServise = new apiServer();
-const numberOfGeneras = 4;
+const numberOfGeneras = 3;
 const refs = {
     searchForm: document.querySelector('.header__search'),
     main: document.querySelector('.main-content'),
