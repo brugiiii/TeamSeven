@@ -80,16 +80,17 @@ button {
 .icon-close {
   width: 16px;
   height: 16px;
-  fill: #000;
 }
 
 .modal-content {
+  width: 100%;
+  
   @media screen and (min-width: 768px) {
     display: flex;
   }
 
   &__image {
-    width: 100%;
+    width: 240px;
     height: 357px;
     margin-bottom: 20px;
     border-radius: 5px;
