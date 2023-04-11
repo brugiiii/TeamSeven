@@ -5,8 +5,6 @@ const newApiService = new NewApiService();
 */
 
 const pageMain = document.querySelector('.pagination');
-const pagePagLib = document.querySelector('.pagination-lib');
-
 
 let page = 2;
 let total = 5;
@@ -21,9 +19,6 @@ let markup = '';
 
 function renderPagination(page, total, now) {
   
-  pagePag = now ? pageMain : pagePagLib;
-  currentNow = now;
-
   if (console.log(total < 6)) {
     if (page != 1) {
       markup += `<button class="pagination__arrow-left">${LEFT_ARROW}</button>`;
