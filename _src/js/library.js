@@ -2,6 +2,6 @@ import './teamModal';
 
 import './searchByKeyword';
 
-import './open-modal';
+import './cardModal';
 
 import './actionLibrary';
