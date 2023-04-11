@@ -7,7 +7,8 @@ const refs = {
   bodyEl: document.querySelector('body'),
   containerEl: document.querySelector('.main-content'),
   backdropEl: document.querySelector('.backdrop.cardModal'),
-  modalEl: document.querySelector('.backdrop.cardModal .modal'),
+  modalEl: document.querySelector('.backdrop.cardModal .modal-content'),
+  closeBtn: document.querySelector('.modal-button')
 };
 
 refs.containerEl.addEventListener('click', onClick);
@@ -39,6 +40,7 @@ function openModal(id) {
 
     refs.bodyEl.addEventListener('click', onBackdrop);
     refs.bodyEl.addEventListener('keydown', onEscBtn);
+    refs.closeBtn.addEventListener('click', closeModal);
   });
 }
 

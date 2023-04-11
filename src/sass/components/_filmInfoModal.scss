@@ -9,7 +9,7 @@ button {
   max-width: 440px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 48px 20px 40px 20px;
+  padding: 48px 20px 40px;
   background-color: #ffffff;
 
   @media screen and (max-width: 767px) {
@@ -27,7 +27,9 @@ button {
   }
 
   &-left {
-    margin-right: 68px;
+    @media screen and(min-width:768px) {
+      margin-right: 68px;
+    }
 
     @media screen and (min-width: 1280px) {
       margin-right: 16px;
@@ -78,8 +80,10 @@ button {
 }
 
 .icon-close {
+
   width: 16px;
   height: 16px;
+
 }
 
 .modal-content {
