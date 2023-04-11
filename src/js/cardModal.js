@@ -7,7 +7,10 @@ const refs = {
   bodyEl: document.querySelector('body'),
   containerEl: document.querySelector('.main-content'),
   backdropEl: document.querySelector('.backdrop.cardModal'),
-  modalEl: document.querySelector('.backdrop.cardModal .modal'),
+
+  modalEl: document.querySelector('.backdrop.cardModal .modal-content'),
+  closeBtn: document.querySelector('.modal-button'),
+
 };
 
 refs.containerEl.addEventListener('click', onClick);
@@ -32,7 +35,18 @@ function openModal(id) {
       return;
     }
 
-    const markup = modalTemplate(movie);
+    const {
+      poster_path,
+      original_title,
+      vote_average,
+      vote_count,
+      popularity,
+      genre_ids,
+      overview,
+    } = results;
+    const genres = genre_ids.join(", ");
+
+    const markup = modalTemplate({ poster_path, original_title, vote_average, vote_count, popularity, genres, overview });
 
     refs.modalEl.innerHTML = markup;
     refs.backdropEl.classList.remove('is-hidden');
