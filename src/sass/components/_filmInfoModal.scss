@@ -158,6 +158,14 @@ button {
     font-size: 12px;
     line-height: 14.06px;
 
+    @media screen and (max-width: 767px) {
+      & button {
+      height: 34px;
+      }
+
+      height: 54px;
+    }
+
     @media screen and (min-width: 768px) {
       gap: 8px;
     }
