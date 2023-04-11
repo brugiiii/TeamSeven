@@ -18,8 +18,8 @@ newApiService.fetchPopularMovies().then(({ results }) => {
 
 const pageMain = document.querySelector('.pagination');
 
-let page = 2;
-let total = 5;
+let page = 1;
+let total = 10;
 let cardOnPage = 20;
 let pagePag = pageMain;
 
@@ -100,9 +100,9 @@ function renderPagination(page, total, now) {
 
 //add class active for <li> не працює
    
- /* let currentItemLi = document.querySelector('.pagination__btn-active');
-      console.log(currentItemLi); */
-
+  /* let currentItemLi = document.querySelector('.pagination__btn-active');
+      console.log(currentItemLi); 
+ 
       let liElItem = document.querySelector(".pagination__btn");
       console.log(liElItem);
       let currentPage = page;
@@ -116,8 +116,29 @@ function renderPagination(page, total, now) {
       if (liElItem.classList.contains('pagination__btn-active')){
       liElItem.classList.remove('pagination__btn-active');
        }
-    }); 
+    });  */
 
+ 
+    let liElItems = document.querySelector(".pagination__btn");
+    
+    let currentPage = page;
+
+  liElItems.addEventListener('click', (event) => {
+    const e = event.currentTarget;
+    console.log(e);
+      if (page === currentPage){
+      e.classList.toggle('pagination__btn-active');
+      //e.classList.remove('pagination__btn-active');
+        if (e.classList.contains('pagination__btn-active')){
+      e.classList.remove('pagination__btn-active');
+     // e.classList.toggle('pagination__btn-active');
+      } 
+      //e.classList.remove('pagination__btn-active');
+      e.classList.toggle('pagination__btn-active');
+    }    
+          
+      
+  }); 
       
  //лічильник який маэ переключати номерацію при кліку на <>
 const pageBtnArrow = document.querySelector('button');
@@ -128,8 +149,8 @@ const pageBtnArrow = document.querySelector('button');
   if (pageBtnArrow.classList.contains('pagination__arrow-right')) {currentPage = page + 1};
 
    if (pageBtnArrow.classList.contains('pagination__btn')){
-    currentPage = Number.textContent.pageBtnArrow
+    currentPage = Number.textContent.pageBtnArrow;
     
-  } console.log( currentPage ) 
+  } //console.log( currentPage ) ;
      
 });
