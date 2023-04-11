@@ -61,6 +61,7 @@ function openModal(id) {
 
     refs.bodyEl.addEventListener('click', onBackdrop);
     refs.bodyEl.addEventListener('keydown', onEscBtn);
+    refs.closeBtn.addEventListener('click', closeModal);
   });
 }
 
@@ -77,7 +78,6 @@ function onEscBtn(e) {
 
     refs.bodyEl.removeEventListener('keydown', onEscBtn);
   }
-  console.log(1);
 }
 
 function closeModal() {

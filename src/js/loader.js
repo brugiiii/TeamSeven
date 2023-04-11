@@ -16,7 +16,6 @@ export default class Loader {
     this.preloaderEl = document.querySelector('.preloader');
   }
   hideLoader() {
-    console.log(this.preloaderEl);
     if (this.preloaderEl) {
       this.preloaderEl.remove();
       this.preloaderEl = null;
