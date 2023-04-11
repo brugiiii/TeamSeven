@@ -1,7 +1,7 @@
 const refs = {
   closeBtn: document.querySelector('.teamModal__closeBtn'),
   openBtn: document.querySelector('.team-text__link'),
-  backdropEl: document.querySelector('.backdrop'),
+  backdropEl: document.querySelector('.backdrop.teamModal'),
   bodyEl: document.querySelector('body'),
 };
 
@@ -14,11 +14,13 @@ function onOpenBtn(e) {
 
   refs.bodyEl.addEventListener('keydown', onEscBtn);
   refs.bodyEl.addEventListener('click', onBackdrop);
+  refs.bodyEl.style.overflow = 'hidden';
 }
 
 function onBackdrop(e) {
   if (e.target.tagName !== 'IMG' && e.target.tagName !== 'A') {
     closeModal();
+    refs.bodyEl.removeEventListener('click', onBackdrop);
   }
 }
 
@@ -32,4 +34,5 @@ function onEscBtn(e) {
 
 function closeModal() {
   refs.backdropEl.classList.add('is-hidden');
+  refs.bodyEl.style.overflow = 'visible';
 }
