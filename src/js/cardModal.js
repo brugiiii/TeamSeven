@@ -8,10 +8,12 @@ const refs = {
   containerEl: document.querySelector('.main-content'),
   backdropEl: document.querySelector('.backdrop.cardModal'),
   modalEl: document.querySelector('.backdrop.cardModal .modal-content'),
-  closeBtn: document.querySelector('.modal-button')
+  closeBtn: document.querySelector('.modal-button'),
 };
 
 refs.containerEl.addEventListener('click', onClick);
+
+let idValue = 0;
 
 function onClick(evt) {
   const target = evt.target.nodeName;
@@ -21,19 +23,25 @@ function onClick(evt) {
   }
 
   const idDatas = evt.target.closest('.card-item');
-  const idValue = idDatas.dataset.action;
+  idValue = idDatas.dataset.action;
 
-  openModal(idValue);
+  openModal();
 }
 
-function openModal(id) {
-  newApiService.fetchPopularMovies().then(({ results }) => {
-    const movie = results.find(result => result.id.toString() === id);
-    if (!movie) {
-      return;
-    }
+async function fetchMovieDetails(id) {
+  const BASE_URL = `https://api.themoviedb.org/3`;
+  const KEY = `0d7a3e0f2906a3f05e73804ba320517e`;
+  const url = `${BASE_URL}/movie/${id}?api_key=${KEY}`;
 
-    const markup = modalTemplate(movie);
+  const response = await fetch(url);
+  const result = await response.json();
+  console.log(result);
+  return result;
+}
+
+function openModal() {
+  fetchMovieDetails(idValue).then(results => {
+    const markup = modalTemplate(results);
 
     refs.modalEl.innerHTML = markup;
     refs.backdropEl.classList.remove('is-hidden');
