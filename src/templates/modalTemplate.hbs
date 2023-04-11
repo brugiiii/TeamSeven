@@ -2,18 +2,21 @@
   <div class='modal'>
     <button class='modal-button'>
       <svg class='icon-close'>
-        <use href='./images/sprite.svg#icon-close'></use>
+        <use href="../images/sprite.svg#icon-close"></use>
       </svg>
     </button>
     <div class='modal-content'>
       <div class='modal-left'>
         <div class='modal-content__image'>
-          <img src='https://image.tmdb.org/t/p/w500{{ backdrop_path }}' alt='{{ original_title }}' />
+          <img
+            src='https://image.tmdb.org/t/p/w500{{backdrop_path}}'
+            alt='{{original_title}}'
+          />
         </div>
       </div>
       <div class='modal-right'>
         <div class='modal-content__info'>
-          <p class='modal-content__name'>{{ original_title }}</p>
+          <p class='modal-content__name'>{{original_title}}</p>
           <ul class='modal-list'>
             <li class='modal-list__item'>
               <p>Vote/Votes</p>
@@ -22,17 +25,17 @@
               <p>Genre</p>
             </li>
             <li class='modal-list__item'>
-              <p><span>{{ vote_average }}</span> / {{ vote_count }}</p>
-              <p>{{ popularity }}</p>
-              <p>{{ original_title }}</p>
-              <p>{{ genre_ids }}</p>
+              <p><span>{{vote_average}}</span> / {{vote_count}}</p>
+              <p>{{popularity}}</p>
+              <p>{{original_title}}</p>
+              <p>{{genre_ids}}</p>
             </li>
           </ul>
         </div>
         <div class='modal-content__about'>
           <p>ABOUT</p>
           <p>
-            {{ overview }}
+            {{overview}}
           </p>
         </div>
         <div class='modal-content__buttons'>
