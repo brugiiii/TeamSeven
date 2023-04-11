@@ -1,8 +1,20 @@
 //імпорт асинхронної функції феч з отриманням даних з сервера 
-/* import NewApiService from './renderCards.js '; 
+import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
 const newApiService = new NewApiService();
-*/
+
+newApiService.fetchPopularMovies().then(({ results }) => {
+  results.map(result => {
+    const { poster_path, original_title, genre_ids, release_date, id } = result;
+    const genres = genre_ids.join(', ');
+    const date = release_date.slice(0, 4);
+
+    const mk = cardTemplate({ poster_path, original_title, genres, date, id });
+
+    const container = document.querySelector('.main-content');
+    container.insertAdjacentHTML('beforeend', mk);
+  });
+});
 
 const pageMain = document.querySelector('.pagination');
 
@@ -80,22 +92,32 @@ function renderPagination(page, total, now) {
       } 
 
   pagePag.innerHTML = markup;
-
-  //add class active for <li>
-  const liElItem = document.querySelectorAll('li');
-  console.log(liElItem)
-  if (page == markup) liEl.classList.add('pagination__item--active');
-
-  liElItem.addEventListener('click', () => {
-    currentPage = page
-    displayList(postsData, rows, currentPage)
-
-    let currentItemLi = document.querySelector('li.pagination__btn-active');
-    currentItemLi.classList.remove('pagination__btn-active');
-
-    liEl.classList.add('pagination__btn-active');
-  });
+ 
   }}
-    renderPagination(page, total)
+    renderPagination(page, total);
 
+
+
+//add class active for <li>
+    const liElItem = document.querySelectorAll(".pagination__btn");
+    console.log(liElItem);
+    
+    let currentPage = page;
+    //console.log(currentPage);
+  
+    if (page === currentPage) {
+      liElItem.classList.add('pagination__item-active');
+      
+      liElItem.addEventListener('click', () => {
+      
+      
+      renderPagination(); 
+
+      let currentItemLi = document.querySelector('.pagination__btn-active');
+      console.log(currentItemLi);
+  
+      currentItemLi.classList.remove('pagination__btn-active');
+  
+      liElItem.classList.add('pagination__btn-active');
+    });};
 
