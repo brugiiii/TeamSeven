@@ -1,7 +1,7 @@
 const refs = {
   closeBtn: document.querySelector('.teamModal__closeBtn'),
   openBtn: document.querySelector('.team-text__link'),
-  backdropEl: document.querySelector('.backdrop'),
+  backdropEl: document.querySelector('.backdrop.teamModal'),
   bodyEl: document.querySelector('body'),
 };
 
@@ -20,6 +20,7 @@ function onOpenBtn(e) {
 function onBackdrop(e) {
   if (e.target.tagName !== 'IMG' && e.target.tagName !== 'A') {
     closeModal();
+    refs.bodyEl.removeEventListener('click', onBackdrop);
   }
 }
 
