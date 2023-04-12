@@ -13,16 +13,14 @@ const RIGHT_ARROW = `<svg class="pagination__icon-rigth"></svg>`;
 const pagePag = document.querySelector('.pagination');
 const pageMainContent = document.querySelector('.main-content');
 
-//(якщо отримати з сервера total_pages,то в mainContent робити нічого не треба)
 totalAll()
-console.log(total)
 mainContent();
 renderPagination(page, total);
 addListener();
 switchArrow();
 
 
-//лічильник який переключає номерацію при кліку на цифри
+//перемикач по кліку на цифри
 function addListener(){
   const liElItems = document.querySelectorAll(".pagination__btn");
   for (const liElItem of liElItems) {
@@ -42,7 +40,7 @@ function addListener(){
   }  
 }
 
-//лічильник який переключає номерацію при кліку на <>
+//перемикач по кліку на <>
 function switchArrow (){
   const jsBtnArrows = document.querySelectorAll(".js-arrow");
   
@@ -71,21 +69,9 @@ function switchArrow (){
     }); 
   }  
 }
- //функція додавання № кінцевої сторінки
-function totalAll() {
-  newApiService.fetchPopularMovies().then(res => {
-    totalAll = res.total_pages;
-    totalPage(totalAll)
-    console.log(totalAll)
-  })
-} 
-function totalPage() {
-  total = totalAll
-  console.log(total)
-  return total
-}
 
-function mainContent () {// додати парам (page)  в запит для отримання галереї по поточній сторінці  !!!
+// відбудова карток
+function mainContent () {
   const pageMainContent = document.querySelector('.main-content');
   newApiService.fetchPopularMovies().then(({ results }) => {
     results.map(result => {
@@ -99,13 +85,15 @@ function mainContent () {// додати парам (page)  в запит для
   });
 } 
 
-function renderPagination(page, total) {//відбудова кнопок 
+//відбудова кнопок
+function renderPagination(page, total) { 
   
-  if (console.log(total < 6)) {
+  if (total < 6) {
     if (page != 1) {
       markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
     }
     for (let p = 1; p <= total; p++) {
+      console.log(total)
       if (p === page) {
         markup += `<li class="pagination__btn pagination__btn-active ">${page}</li>`;
       } else {
@@ -128,50 +116,67 @@ function renderPagination(page, total) {//відбудова кнопок
       markup += `<li class="pagination__btn ">${total}</li>`;
       markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;
     } else {
-        if (page > total - 3) {
+      if (page > total - 3) {
           markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
           markup += `<li class="pagination__btn ">1</li>`;
           markup += `<li class="pagination__btn pagination__points">...</li>`;
-          for (let p = page-2; p <= total; p=p+1) {
-            if (p === page) {
-              markup += `<li class="pagination__btn pagination__btn-active ">${page}</li>`;
-            } else {
+        for (let p = page-2; p <= total; p=p+1) {
+          if (p === page) {
+            markup += `<li class="pagination__btn pagination__btn-active ">${page}</li>`;
+          } else {
             markup += `<li class="pagination__btn ">${p}</li>`;
-              }        
-          } if (total === page){
+          }        
+        } 
+        if (total === page){
             markup += `<button class="pagination__arrow-right js-arrow pagination__arrow-hiden">${RIGHT_ARROW}</button>`;
-            } else {
-            markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;
-              }
         } else {
-          if (page <= total - 3) {
+            markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;
+        }
+      } else {
+        if (page <= total - 3) {
             markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
             markup += `<li class="pagination__btn ">1</li>`;
             markup += `<li class="pagination__btn pagination__points">...</li>`;
-            for (let p = page-2; p <= page+2; p=p+1){
-              if (p === page) {
-                markup += `<li class="pagination__btn pagination__btn-active ">${page}</li>`;
-              } else {
+          for (let p = page-2; p <= page+2; p=p+1){
+            if (p === page) {
+              markup += `<li class="pagination__btn pagination__btn-active ">${page}</li>`;
+            } else {
               markup += `<li class="pagination__btn ">${p}</li>`;
-                }
-            } markup += `<li class="pagination__btn pagination__points">...</li>`;
-              markup += `<li class="pagination__btn ">${total}</li>`;
-              markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;   
-          } 
+              }
+          }
+            markup += `<li class="pagination__btn pagination__points">...</li>`;
+            markup += `<li class="pagination__btn ">${total}</li>`;
+            markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;   
         } 
-      }
-        pagePag.innerHTML = markup
-        markup = "";
-        
-  } 
+      } 
+    }
+  }
+  pagePag.innerHTML = markup
+  markup = "";
 }
 
-function reseter(){//очистка
+//очистка
+function reseter(){
   pagePag.innerHTML = '';
   pageMainContent.innerHTML = ''; 
- }
+}
 
+//оновлення нумерації по 'click'
 function pageNum(newPage) {
   page = newPage;
 }
-     
+
+//функція додавання № кінцевої сторінки
+function totalAll() {
+  newApiService.fetchPopularMovies().then(res => {
+    totalAll = res.total_pages;
+    totalPage(totalAll)
+  })
+
+  function totalPage() {
+    if (totalAll > 500) {
+      total = 500
+    } else {total = totalAll}
+  }
+} 
+
