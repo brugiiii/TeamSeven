@@ -7,12 +7,11 @@ export default class Loader {
   }
 
   showLoader() {
-    const markUpLoader = `<div id='page-loader' class="preloader preloader__home">
-    <div class='loader loader__home'></div>
+    const markUpLoader = `<div id='page-loader' class="preloader">
+    <div class='loader'></div>
   </div>`;
     this.mainEl.insertAdjacentHTML('afterbegin', markUpLoader);
 
-    // showLoader();
     this.preloaderEl = document.querySelector('.preloader');
   }
   hideLoader() {

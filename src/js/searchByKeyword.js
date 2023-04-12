@@ -1,6 +1,10 @@
 import apiServer from './api-servis';
 import searchRenderBox from '../templates/searchRenger.hbs';
 const apiServise = new apiServer();
+
+import Loader from './loader';
+const loader = new Loader();
+
 const refs = {
   searchForm: document.querySelector('.header__search'),
   main: document.querySelector('.main-content'),
@@ -40,6 +44,10 @@ async function ganreListProcessin() {
 
 async function createCards(array) {
   try {
+    loader.showLoader();
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     await apiServise.fetchSearchMoviesPages().then(({ results }) => {
       const articleStore = results.map(
         ({ title, release_date, poster_path, genre_ids, id }) => {
@@ -50,6 +58,8 @@ async function createCards(array) {
       );
       const markup = searchRenderBox({ articleStore });
       refs.main.innerHTML = markup;
+
+      loader.hideLoader();
     });
   } catch (error) {
     console.log('createCards', error);
