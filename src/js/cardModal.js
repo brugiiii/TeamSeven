@@ -1,6 +1,8 @@
 import NewApiService from './api-servis';
 import modalTemplate from '../templates/modalTemplate.hbs';
 
+
+
 const newApiService = new NewApiService();
 
 const refs = {
@@ -10,7 +12,7 @@ const refs = {
 
   modalEl: document.querySelector('.backdrop.cardModal .modal-content'),
   closeBtn: document.querySelector('.modal-button'),
-};
+}
 
 refs.containerEl.addEventListener('click', onClick);
 
