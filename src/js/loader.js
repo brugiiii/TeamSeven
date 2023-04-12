@@ -1,5 +1,6 @@
 const mainEl = document.querySelector('.main-content');
 
+
 export default class Loader {
   constructor() {
     this.mainEl = mainEl;
@@ -20,4 +21,7 @@ export default class Loader {
       this.preloaderEl = null;
     }
   }
+
 }
+
+// showLoader();

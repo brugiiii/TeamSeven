@@ -1,46 +1,61 @@
 import apiServer from './api-servis';
-import searchRenderBox from '../templates/searchRenger.hbs';
+import searchRenderBox from '../templates/searchRenger.hbs'
+export{numberOfGeneras, ganreListProcessin}
 const apiServise = new apiServer();
+
 
 import Loader from './loader';
 const loader = new Loader();
 
+
+const numberOfGeneras = 4;
+
 const refs = {
-  searchForm: document.querySelector('.header__search'),
-  main: document.querySelector('.main-content'),
+    searchForm: document.querySelector('.header__search'),
+    main: document.querySelector('.main-content'),
+    wrongSearchMess: document.querySelector('.wrong-search'),
 };
 
 refs.searchForm.addEventListener('submit', onInputForm);
 
-function onInputForm(e) {
-  e.preventDefault();
+  function onInputForm(e){
+    e.preventDefault();
+    apiServise.query = e.currentTarget.elements.search.value;
+     ganreListProcessin().then(createCards);  
 
-  apiServise.query = e.currentTarget.elements.search.value;
-  apiServise.pageNum = 1;
-
-  ganreListProcessin().then(createCards);
 }
 
-async function ganreListProcessin() {
-  let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
-
-  try {
-    if (!localStorage.getItem('ganre-List')) {
-      const ganres = await apiServise.fetchGenresMovies();
-
-      const ganreList = ganres.map(({ id, name }) => {
-        return { [id]: name };
-      });
-
-      comparisonList = ganreList;
-      const localStorageJson = JSON.stringify(ganreList);
-      localStorage.setItem('ganre-List', localStorageJson);
+    async function ganreListProcessin(){
+    let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
+   
+    try {
+  
+      if(!localStorage.getItem('ganre-List')){
+  
+         const  ganres =  await apiServise.fetchGenresMovies();     
+          comparisonList = ganres;
+           
+          const localStorageJson = JSON.stringify(ganres);
+          localStorage.setItem('ganre-List',localStorageJson);
+      }
+      
+    } catch (error) {
+      console.log("ganreListProcessin", error);
     }
-  } catch (error) {
-    console.log('ganreListProcessin', error);
+    return comparisonList;
   }
-  return comparisonList;
-}
+
+
+
+async function createCards(genresBase){
+    try{
+        await apiServise.fetchSearchMoviesPages().then(({results}) =>{
+          refs.wrongSearchMess.classList.add("visually-hidden")
+            if(!results.length){
+              refs.wrongSearchMess.classList.remove("visually-hidden");
+              return;
+            } 
+
 
 async function createCards(array) {
   try {
@@ -64,4 +79,5 @@ async function createCards(array) {
   } catch (error) {
     console.log('createCards', error);
   }
+
 }

@@ -1,9 +1,8 @@
 import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
-import Loader from './loader';
-
-const loader = new Loader();
+import { numberOfGeneras ,ganreListProcessin} from './searchByKeyword'
 const newApiService = new NewApiService();
+
 
 async function fetchData() {
   try {
@@ -38,3 +37,4 @@ async function fetchData() {
 }
 
 fetchData();
+
