@@ -1,6 +1,8 @@
+
 export const storageKeys = {
   WATCHED: 'watched',
   QUEUE: 'queue',
+
 };
 
 export const save = (key, value) => { 
