@@ -1,4 +1,4 @@
-import cardTemplate from '../templates/cardTemplate.hbs';
+/* import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
 import Loader from './loader';
 
@@ -17,3 +17,4 @@ newApiService.fetchPopularMovies().then(({ results }) => {
     container.insertAdjacentHTML('beforeend', mk);
   });
 });
+ */
