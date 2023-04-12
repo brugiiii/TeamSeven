@@ -1,5 +1,8 @@
 /* import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
+import Loader from './loader';
+
+const loader = new Loader();
 const newApiService = new NewApiService();
 
 newApiService.fetchPopularMovies().then(({ results }) => {

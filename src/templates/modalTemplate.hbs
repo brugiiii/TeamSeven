@@ -1,10 +1,13 @@
-<div class='modal-left'>
-  <div class='modal-content__image'>
-    <img
-      src='https://image.tmdb.org/t/p/w500{{poster_path}}'
-      alt='{{original_title}}'
-    />
+<div class='modal-content'>
+  <div class='modal-left'>
+    <div class='modal-content__image'>
+      <img
+        src='https://image.tmdb.org/t/p/w500{{poster_path}}'
+        alt='{{original_title}}'
+      />
+    </div>
   </div>
+
 </div>
 <div class='modal-right'>
   <div class='modal-content__info'>
@@ -20,7 +23,7 @@
         <p><span>{{vote_average}}</span> / {{vote_count}}</p>
         <p>{{popularity}}</p>
         <p>{{original_title}}</p>
-        <p>{{genre_ids}}</p>
+        <p>{{genres}}</p>
       </li>
     </ul>
   </div>
@@ -33,5 +36,6 @@
   <div class='modal-content__buttons'>
     <button class='button modal-button__primary'>Add To Watched</button>
     <button class='button modal-button__secondary'>Add To Queue</button>
+
   </div>
 </div>
