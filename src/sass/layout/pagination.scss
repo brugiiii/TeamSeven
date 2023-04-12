@@ -34,13 +34,13 @@
   background-color: #f7f7f7;
  display: flex;
   cursor: pointer;
-     &:first-child { //не впевнена в відстанях
+    /*  &:first-child { //не впевнена в відстанях
       margin-right: 16px; 
   }
       
   &:last-child {
       margin-left: 16px;
-  }
+  } */
 }
 
 .pagination__btn {

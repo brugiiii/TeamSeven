@@ -9,10 +9,10 @@ export default class NewApiService {
 
   async fetchPopularMovies() {
     const url = `${BASE_URL}/movie/popular?api_key=${KEY}&language=en-US&page=${this.page}`;
-
+    
     const response = await fetch(url);
     const result = response.json();
-
+    //console.log(result)
     return result;
   }
 
@@ -64,3 +64,4 @@ export default class NewApiService {
     this.page = newPage;
   }
 }
+

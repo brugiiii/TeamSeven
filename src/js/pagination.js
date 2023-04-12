@@ -3,37 +3,107 @@ import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
 const newApiService = new NewApiService();
 
-newApiService.fetchPopularMovies().then(({ results }) => {
-  results.map(result => {
-    const { poster_path, original_title, genre_ids, release_date, id } = result;
-    const genres = genre_ids.join(', ');
-    const date = release_date.slice(0, 4);
-
-    const mk = cardTemplate({ poster_path, original_title, genres, date, id });
-
-    const container = document.querySelector('.main-content');
-    container.insertAdjacentHTML('beforeend', mk);
-  });
-});
-
-const pageMain = document.querySelector('.pagination');
-
-let page = 5;
-console.log(page);
+let page = 1;
 let total = 20;
-let cardOnPage = 20;
-let pagePag = pageMain;
 
+let markup = '';
 const LEFT_ARROW = `<svg class="pagination__icon-left"></svg>`;
 const RIGHT_ARROW = `<svg class="pagination__icon-rigth"></svg>`;
 
-let markup = '';
+const pagePag = document.querySelector('.pagination');
+const pageMainContent = document.querySelector('.main-content');
 
-function renderPagination(page, total, now) {
+//(якщо отримати з сервера total_pages,то в mainContent робити нічого не треба)
+totalAll()
+console.log(total)
+mainContent();
+renderPagination(page, total);
+addListener();
+switchArrow();
+
+
+//лічильник який переключає номерацію при кліку на цифри
+function addListener(){
+  const liElItems = document.querySelectorAll(".pagination__btn");
+  for (const liElItem of liElItems) {
+    
+    if (liElItem.classList.contains("pagination__points")){
+      continue;
+    }
+    liElItem.addEventListener('click', (e) =>{
+      pageNum(liElItem.textContent*1)
+      newApiService.pageNum = page;
+      reseter();
+      mainContent();
+      renderPagination(page, total);
+      addListener(liElItems);
+      switchArrow ();
+    }); 
+  }  
+}
+
+//лічильник який переключає номерацію при кліку на <>
+function switchArrow (){
+  const jsBtnArrows = document.querySelectorAll(".js-arrow");
+  
+  for (const jsBtnArrow of jsBtnArrows){
+    jsBtnArrow.addEventListener ('click', (e) => {
+  
+      if (jsBtnArrow.classList.contains("pagination__arrow-left")) {
+        page = page - 1;
+        newApiService.pageNum = page;
+        reseter();
+        mainContent();
+        renderPagination(page, total);
+        switchArrow ();
+        addListener();
+      };
+      
+      if (jsBtnArrow.classList.contains("pagination__arrow-right")) {
+        page = page + 1
+        newApiService.pageNum = page;
+        reseter();
+        mainContent();
+        renderPagination(page, total);
+        switchArrow ();
+        addListener();
+      };
+    }); 
+  }  
+}
+ //функція додавання № кінцевої сторінки
+function totalAll() {
+  newApiService.fetchPopularMovies().then(res => {
+    totalAll = res.total_pages;
+    totalPage(totalAll)
+    console.log(totalAll)
+  })
+} 
+function totalPage() {
+  total = totalAll
+  console.log(total)
+  return total
+}
+
+function mainContent () {// додати парам (page)  в запит для отримання галереї по поточній сторінці  !!!
+  const pageMainContent = document.querySelector('.main-content');
+  newApiService.fetchPopularMovies().then(({ results }) => {
+    results.map(result => {
+    const { poster_path, original_title, genre_ids, release_date, id } = result;
+    const genres = genre_ids.join(', ');
+    const date = release_date.slice(0, 4);
+    const mk = cardTemplate({ poster_path, original_title, genres, date, id });
+    const container = document.querySelector('.main-content');
+    container.insertAdjacentHTML('beforeend', mk);
+    });
+  });
+} 
+
+function renderPagination(page, total) {//відбудова кнопок 
   
   if (console.log(total < 6)) {
     if (page != 1) {
-      markup += `<button class="pagination__arrow-left">${LEFT_ARROW}</button>`;
+      markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
     }
     for (let p = 1; p <= total; p++) {
       if (p === page) {
@@ -45,7 +115,7 @@ function renderPagination(page, total, now) {
   } else {
     if (page < 4) {
       if (page != 1) {
-       markup += `<button class="pagination__arrow-left">${LEFT_ARROW}</button>`;
+       markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
       }
       for (let p = 1; p <= page + 2; p++) {
         if (p === page) {
@@ -56,10 +126,10 @@ function renderPagination(page, total, now) {
       }
       markup += `<li class="pagination__btn pagination__points">...</li>`;
       markup += `<li class="pagination__btn ">${total}</li>`;
-      markup += `<button class="pagination__arrow-right ">${RIGHT_ARROW}</button>`;
+      markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;
     } else {
         if (page > total - 3) {
-          markup += `<button class="pagination__arrow-left">${LEFT_ARROW}</button>`;
+          markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
           markup += `<li class="pagination__btn ">1</li>`;
           markup += `<li class="pagination__btn pagination__points">...</li>`;
           for (let p = page-2; p <= total; p=p+1) {
@@ -69,13 +139,13 @@ function renderPagination(page, total, now) {
             markup += `<li class="pagination__btn ">${p}</li>`;
               }        
           } if (total === page){
-            markup += `<button class="pagination__arrow-right pagination__arrow-hiden">${RIGHT_ARROW}</button>`;
+            markup += `<button class="pagination__arrow-right js-arrow pagination__arrow-hiden">${RIGHT_ARROW}</button>`;
             } else {
-            markup += `<button class="pagination__arrow-right ">${RIGHT_ARROW}</button>`;
+            markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;
               }
         } else {
           if (page <= total - 3) {
-            markup += `<button class="pagination__arrow-left">${LEFT_ARROW}</button>`;
+            markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
             markup += `<li class="pagination__btn ">1</li>`;
             markup += `<li class="pagination__btn pagination__points">...</li>`;
             for (let p = page-2; p <= page+2; p=p+1){
@@ -86,66 +156,22 @@ function renderPagination(page, total, now) {
                 }
             } markup += `<li class="pagination__btn pagination__points">...</li>`;
               markup += `<li class="pagination__btn ">${total}</li>`;
-              markup += `<button class="pagination__arrow-right ">${RIGHT_ARROW}</button>`;   
+              markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;   
           } 
         } 
-      } 
+      }
+        pagePag.innerHTML = markup
+        markup = "";
+        
+  } 
+}
 
-  pagePag.innerHTML = markup;
-  
-  }}
-    renderPagination(page, total);
+function reseter(){//очистка
+  pagePag.innerHTML = '';
+  pageMainContent.innerHTML = ''; 
+ }
 
-
-//add class active for <li> не працює
-   
-  /* let currentItemLi = document.querySelector('.pagination__btn-active');
-      console.log(currentItemLi); 
- 
-      let liElItem = document.querySelector(".pagination__btn");
-      console.log(liElItem);
-      let currentPage = page;
-
-    liElItem.addEventListener('click', () => {
-      if (page === currentPage){
-      liElItem.classList.add('pagination__btn-active');  }    
-      
-      renderPagination(markup); 
-
-      if (liElItem.classList.contains('pagination__btn-active')){
-      liElItem.classList.remove('pagination__btn-active');
-       }
-    });  */
-
-  liElItems[0].addEventListener('click', (event) => {
-    const e = event.currentTarget;
-    console.log(e);
-      if (page === currentPage){
-      e.classList.toggle('pagination__btn-active');
-      //e.classList.remove('pagination__btn-active');
-        if (e.classList.contains('pagination__btn-active')){
-      e.classList.remove('pagination__btn-active');
-     // e.classList.toggle('pagination__btn-active');
-      } 
-      //e.classList.remove('pagination__btn-active');
-      e.classList.toggle('pagination__btn-active');
-    }    
-          
-      
-  });  
-      
-  /* //лічильник який маэ переключати номерацію при кліку на <>
-const pageBtnArrow = document.querySelector('button');
-  pageMain.addEventListener('click', () => {
-   
-  if (pageBtnArrow.classList.contains('pagination__arrow-left')) {currentPage = page - 1};
-
-  if (pageBtnArrow.classList.contains('pagination__arrow-right')) {currentPage = page + 1};
-
-   if (pageBtnArrow.classList.contains('pagination__btn')){
-    currentPage = Number.textContent.pageBtnArrow;
-    
-  } console.log( currentPage ) ;
+function pageNum(newPage) {
+  page = newPage;
+}
      
-}); */
- 
