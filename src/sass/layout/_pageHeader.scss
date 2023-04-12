@@ -19,6 +19,7 @@
 }
 
 .header__background {
+  position:relative;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -121,6 +122,31 @@
       gap: 8px;
     }
   }
+}
+.wrong-search{
+  position: absolute;  
+  left: 28px;
+  top: 98px;
+
+  width: 155px;
+  height: 24px;
+  font-size: 10px;
+  color: #FFFFFF;
+
+@media screen and (min-width: 768px) {
+  top: 62px;
+  left: 32px;
+
+  width: 135px;
+}
+ @media screen and (min-width:1280px){
+  top: 66px;
+  left: 48px;
+
+  width: 155px;
+
+ }
+
 }
 
 .header__btn-wrapper {

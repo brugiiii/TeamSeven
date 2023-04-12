@@ -1,6 +1,8 @@
+
 export const storageKeys = {
   WATCHED: 'watched',
   QUEUE: 'queue',
+
 };
 
 export const save = (key, value) => { 
@@ -20,11 +22,3 @@ export const load = key => {
     console.error('Get state error: ', error.message);
   }
 };
-
-// export const remove = key => {
-//   try {
-//     localStorage.removeItem(key);
-//   } catch (error) {
-//     console.error('Remove state error: ', error.message);
-//   }
-// };

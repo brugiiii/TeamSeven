@@ -1,5 +1,9 @@
 import NewApiService from './api-servis';
 import modalTemplate from '../templates/modalTemplate.hbs';
+import { storageKeys, load, save } from './localStorage';
+import * as addingToStorage from './addToStorage';
+
+
 
 const newApiService = new NewApiService();
 
@@ -7,9 +11,13 @@ const refs = {
   bodyEl: document.querySelector('body'),
   containerEl: document.querySelector('.main-content'),
   backdropEl: document.querySelector('.backdrop.cardModal'),
+
+
   modalEl: document.querySelector('.backdrop.cardModal .modal-content'),
   closeBtn: document.querySelector('.modal-button'),
+
 };
+
 
 refs.containerEl.addEventListener('click', onClick);
 
@@ -48,7 +56,19 @@ function openModal() {
 
     refs.bodyEl.addEventListener('click', onBackdrop);
     refs.bodyEl.addEventListener('keydown', onEscBtn);
+
     refs.closeBtn.addEventListener('click', closeModal);
+
+    const addToWatchedBtn = document.querySelector('.modal-button__primary');
+    const addToQueueBtn = document.querySelector('.modal-button__secondary');
+    addToWatchedBtn.addEventListener('click', evt => {
+      saveDataMovie(evt, movie);
+    });
+  
+    addToQueueBtn.addEventListener('click', evt => {
+        saveDataMovie(evt, movie);
+    });
+
   });
 }
 
@@ -71,4 +91,9 @@ function onEscBtn(e) {
 function closeModal() {
   refs.backdropEl.classList.add('is-hidden');
   refs.bodyEl.style.overflow = 'visible';
+}
+
+function saveDataMovie(evt, movie) {
+  localStorage.setItem('modalMovieData', JSON.stringify(movie));
+  addingToStorage.onBtnAddToLibrary(evt);
 }
