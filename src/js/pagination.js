@@ -1,19 +1,16 @@
 //імпорт асинхронної функції феч з отриманням даних з сервера 
 import cardTemplate from '../templates/cardTemplate.hbs'
 import NewApiService from './api-servis'
-import {onInputForm} from './searchByKeyword'
 const newApiService = new NewApiService()
 
 let page = 1;
 let total = 20;
-
 let markup = '';
 const LEFT_ARROW = `<svg class="pagination__icon-left"></svg>`;
 const RIGHT_ARROW = `<svg class="pagination__icon-rigth"></svg>`;
 
 const pagePag = document.querySelector('.pagination');
 const pageMainContent = document.querySelector('.main-content');
-const searchForm = document.querySelector('.header__search');
 
 totalAll()
 mainContent();
@@ -36,18 +33,10 @@ switchArrow();
       reseter();
       mainContent();
       renderPagination(page, total);
-      addListener(liElItems);
+      addListener();
       switchArrow ();
     })
-  }  searchForm.addEventListener('submit', (e) =>{ //перемикач по кліку на цифри, запуск пагінації після пошуку по слову
-      pageNum(liElItem.textContent*1)
-      //newApiService.pageNum = page;
-      reseter();
-      onInputForm();
-      renderPagination(page, total);
-      addListener(liElItems);
-      switchArrow ();
-  }); 
+  } 
 }
 
 //перемикач по кліку на <>
@@ -93,10 +82,10 @@ function mainContent () {
     container.insertAdjacentHTML('beforeend', mk);
     });
   });
-} 
+}  
 
 //відбудова кнопок
-function renderPagination(page, total) { 
+function renderPagination() { 
   
   if (total < 6) {
     if (page != 1) {
@@ -182,10 +171,10 @@ function totalAll() {
     totalAll = res.total_pages;
     totalPage(totalAll)
   })
+
   function totalPage() {
     if (totalAll > 500) {
       total = 500
     } else {total = totalAll}
   }
 } 
-
