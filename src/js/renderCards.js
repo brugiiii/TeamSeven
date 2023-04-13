@@ -7,8 +7,6 @@ const newApiService = new NewApiService();
 ganreListProcessin().then(fetchData);
 async function fetchData(genresBase) {
   try {
-    loader.showLoader();
-    await new Promise(resolve => setTimeout(resolve, 500));
     const { results } = await newApiService.fetchPopularMovies();
 
     await results.map(result => {
@@ -41,7 +39,6 @@ async function fetchData(genresBase) {
 
       container.insertAdjacentHTML('beforeend', mk);
     });
-    loader.hideLoader();
   } catch (error) {
     console.error('Помилка під час отримання даних:', error);
   }
