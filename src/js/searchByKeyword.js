@@ -2,7 +2,7 @@ import apiServer from './api-servis';
 import searchRenderBox from '../templates/searchRenger.hbs';
 import NewLoader from './loader';
 
-export { numberOfGeneras, ganreListProcessin };
+export { numberOfGeneras, ganreListProcessin, renderOnScreen };
 
 
 const apiServise = new apiServer();
@@ -14,6 +14,7 @@ const refs = {
   main: document.querySelector('.main-content'),
   wrongSearchMess: document.querySelector('.wrong-search'),
 };
+
 refs.searchForm.addEventListener('submit', onInputForm);
 
 export function onInputForm(e) {
@@ -39,9 +40,13 @@ async function ganreListProcessin() {
 
 async function createCards(genresBase) {
   try {
-     newLoader.showLoader();
+
+    newLoader.showLoader();
+
     await new Promise(resolve => setTimeout(resolve, 300));
+    
     await apiServise.fetchSearchMoviesPages().then(({ results }) => {
+
       refs.wrongSearchMess.classList.add('visually-hidden');
       if (!results.length) {
         newLoader.hideLoader();
@@ -51,36 +56,49 @@ async function createCards(genresBase) {
         }, timeMessage);
         return;
       }
-      newLoader.showLoader();
-      const articleStore = results.map(
-        ({ title, release_date, poster_path, genre_ids, id }) => {
-          release_date = release_date.slice(0, 4);
-          poster_path = `https://image.tmdb.org/t/p/w500${poster_path}`;
-         
-          const genres = [...genresBase.genres];
-          const genreIds = genre_ids;
-          let genresNames = [];
-          const other = 'Other';
 
-          for (let i = 0; i < genreIds.length; i++) {
-            const genre = genres.find(g => g.id === genreIds[i]);
-            genresNames.push(genre.name);
-          }
+      renderOnScreen( results , genresBase);
+      
 
-          let currentGanre = null;
-         if (genresNames.length < numberOfGeneras) {
-               currentGanre = genresNames.join(',  ');
-           } else {
-            currentGanre = [...genresNames.slice(0, 2), other].join(', ');
-           }
-          return { title, release_date, currentGanre, poster_path, id };
-        }
-      );
-      const markup = searchRenderBox({ articleStore });
-      refs.main.innerHTML = markup;
-      newLoader.hideLoader();
+
     });
+    newLoader.hideLoader();
   } catch (error) {
     console.log('createCards', error);
   }
 }
+
+
+
+ function renderOnScreen(results, genresBase){
+  
+  const articleStore = results.map(
+    ({ title, release_date, poster_path, genre_ids, id }) => {
+      release_date = release_date.slice(0, 4);
+      poster_path = `https://image.tmdb.org/t/p/w500${poster_path}`;
+     
+      const genres = [...genresBase.genres];
+      const genreIds = genre_ids;
+      let genresNames = [];
+      const other = 'Other';
+
+
+      for (let i = 0; i < genreIds.length; i++) {
+        const genre = genres.find(g => g.id === genreIds[i]);
+        genresNames.push(genre.name);
+      }
+
+
+      let currentGanre = null;
+     if (genresNames.length < numberOfGeneras) {
+           currentGanre = genresNames.join(',  ');
+       } else {
+        currentGanre = [...genresNames.slice(0, 2), other].join(', ');
+       }
+      return { title, release_date, currentGanre, poster_path, id };
+    }
+  );
+  const markup = searchRenderBox({ articleStore });
+  refs.main.innerHTML = markup;
+
+ }
