@@ -1,8 +1,6 @@
 import NewApiService from './api-servis';
 import modalTemplate from '../templates/modalTemplate.hbs';
 
-
-
 const newApiService = new NewApiService();
 
 const refs = {
@@ -84,5 +82,5 @@ function onEscBtn(e) {
 
 function closeModal() {
   refs.backdropEl.classList.add('is-hidden');
-  refs.bodyEl.style.overflow = 'visible';
+  refs.bodyEl.style.overflow = 'visible'; 
 }

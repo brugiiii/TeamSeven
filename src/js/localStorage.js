@@ -1,4 +1,4 @@
-import {cchangeWatchedBtn,changeQueueBtn} from './remove-Button';
+import {watchedBtnToRemuve, queueBtnToRemuve, remuveBtnToWatched, remuveBtnToQueue} from './remove-Button';
 const load = key => {
   try {
     const serializedState = localStorage.getItem(key);
