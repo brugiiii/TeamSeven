@@ -1,3 +1,4 @@
+
 <button class='modal-button'>
   <svg class='icon-close'>
     <use href='../images/sprite.svg#icon-close'></use>
@@ -6,22 +7,26 @@
 <div class='modal-content'>
   <div class='modal-left'>
     <div class='modal-content__image'>
+
       <img
-        src='https://image.tmdb.org/t/p/w500{{poster_path}}'
-        alt='{{original_title}}'
+        src="https://image.tmdb.org/t/p/w500{{poster_path}}"
+        alt="{{original_title}}"
       />
     </div>
   </div>
+
   <div class='modal-right'>
     <div class='modal-content__info'>
       <p class='modal-content__name'>{{original_title}}</p>
       <ul class='modal-list'>
         <li class='modal-list__item'>
+
           <p>Vote/Votes</p>
           <p>Popularity</p>
           <p>Original Title</p>
           <p>Genre</p>
         </li>
+
         <li class='modal-list__item'>
           <p><span>{{vote_average}}</span> / {{vote_count}}</p>
           <p>{{popularity}}</p>
@@ -31,14 +36,17 @@
       </ul>
     </div>
     <div class='modal-content__about'>
+
       <p>ABOUT</p>
       <p>
         {{overview}}
       </p>
     </div>
+
     <div class='modal-content__buttons'>
       <button class='button modal-button__primary'>Add To Watched</button>
       <button class='button modal-button__secondary'>Add To Queue</button>
+
     </div>
   </div>
 </div>

@@ -1,6 +1,11 @@
 import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
+
 import NewLoader from './loader';
+
+
+import { numberOfGeneras ,ganreListProcessin} from './searchByKeyword'
+
 
 const newApiService = new NewApiService();
 const newLoader = new NewLoader();
@@ -27,14 +32,18 @@ async function fetchData() {
         id,
       });
 
+
       const container = document.querySelector('.main-content');
       container.insertAdjacentHTML('beforeend', mk);
     });
 
     newLoader.hideLoader();
+
   } catch (error) {
     console.error('Помилка під час отримання даних:', error);
   }
 }
 
+
 fetchData();
+
