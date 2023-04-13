@@ -1,22 +1,16 @@
 import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
 import { numberOfGeneras ,ganreListProcessin} from './searchByKeyword'
-import NewLoader from './loader'; //new
+const newApiService = new NewApiService();
+let genresBase = null;
+ async function getBase() {
+  genresBase = await ganreListProcessin();
+ }
+ getBase();
+  
+newApiService.fetchPopularMovies().then(({ results }) => {
 
-const newApiService = new NewApiService(); //+
-const newLoader = new NewLoader();
-
-ganreListProcessin().then(fetchData);
-
-
-async function fetchData(genresBase) {
-  try {
-    // newLoader.showLoader();
-   
-   await newApiService.fetchPopularMovies().then(({results})=> {
-
-  //  await new Promise(resolve => setTimeout(resolve, 1000))
-
+ 
   results.map(result => {
     const { poster_path, original_title, genre_ids, release_date, id } = result;
     //  const genres = genre_ids.join(', ');
@@ -40,21 +34,4 @@ async function fetchData(genresBase) {
     const container = document.querySelector('.main-content');
     container.insertAdjacentHTML('beforeend', mk);
   });
-
-
-
-
-
-
-
-   });
-    // newLoader.hideLoader();
-
-  } catch (error) {
-    console.error('Помилка під час отримання даних:', error);
-  }
-}
-
-
-
-
+});

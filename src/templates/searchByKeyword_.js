@@ -3,7 +3,6 @@ import searchRenderBox from '../templates/searchRenger.hbs'
 export{numberOfGeneras, ganreListProcessin}
 const apiServise = new apiServer();
 const numberOfGeneras = 4;
-
 const refs = {
     searchForm: document.querySelector('.header__search'),
     main: document.querySelector('.main-content'),
@@ -19,26 +18,27 @@ refs.searchForm.addEventListener('submit', onInputForm);
 
 }
 
-
-async function ganreListProcessin(){
-  let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
- 
-  try {
-
-    if(!localStorage.getItem('ganre-List')){
-
-       const  ganres =  await apiServise.fetchGenresMovies();     
-        comparisonList = ganres;
-         
-        const localStorageJson = JSON.stringify(ganres);
-        localStorage.setItem('ganre-List',localStorageJson);
+    async function ganreListProcessin(){
+    let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
+   
+    try {
+  
+      if(!localStorage.getItem('ganre-List')){
+  
+         const  ganres =  await apiServise.fetchGenresMovies();     
+          comparisonList = ganres;
+           
+          const localStorageJson = JSON.stringify(ganres);
+          localStorage.setItem('ganre-List',localStorageJson);
+      }
+      
+    } catch (error) {
+      console.log("ganreListProcessin", error);
     }
-    
-  } catch (error) {
-    console.log("ganreListProcessin", error);
+    return comparisonList;
   }
-  return comparisonList;
-}
+
+
 
 async function createCards(genresBase){
     try{
@@ -71,8 +71,6 @@ async function createCards(genresBase){
                   
                return {title, release_date, currentGanre, poster_path, id};
             });
-            
-
              const markup = searchRenderBox({articleStore});
              refs.main.innerHTML = markup;       
         });    
@@ -80,5 +78,4 @@ async function createCards(genresBase){
         console.log("createCards", error);
     }
     
-
 }
