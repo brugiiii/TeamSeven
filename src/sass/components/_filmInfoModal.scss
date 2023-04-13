@@ -165,7 +165,7 @@ button {
 
     @media screen and (max-width: 767px) {
       & button {
-        height: 34px;
+        margin-bottom: auto;
       }
 
       height: 54px;
@@ -217,7 +217,7 @@ button {
   &__item:last-child {
     color: #000;
 
-    & span {
+    & span:nth-child(1) {
       display: inline-block;
       width: 36px;
       height: 16px;
@@ -226,6 +226,21 @@ button {
 
       text-align: center;
       color: #fff;
+    }
+
+    & span:nth-child(2) {
+      color: #8C8C8C;
+    }
+
+    & span:nth-child(3) {
+      display: inline-block;
+      width: 36px;
+      height: 16px;
+      background-color: #F7F7F7;
+      border-radius: 5px;
+
+      text-align: center;
+      color: #000;
     }
 
     & p:nth-child(3) {
