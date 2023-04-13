@@ -37,8 +37,8 @@ function saveToStorage(array, key, keyValue, event) {
     if (!checkMovie) {
       array.push(movie);
       save(key, array);
-      event.target.innerText = `REMOVE FROM ${keyValue}`;
     }
+    event.target.innerText = `REMOVE FROM ${keyValue}`;
 }
 
 function deleteFromStorage(array, key, keyValue, event) {
