@@ -2,20 +2,17 @@
 //імпорт асинхронної функції феч з отриманням даних з сервера 
 import cardTemplate from '../templates/cardTemplate.hbs'
 import NewApiService from './api-servis'
-import {onInputForm} from './searchByKeyword'
 const newApiService = new NewApiService()
 
 
 let page = 1;
 let total = 20;
-
 let markup = '';
 const LEFT_ARROW = `<svg class="pagination__icon-left"></svg>`;
 const RIGHT_ARROW = `<svg class="pagination__icon-rigth"></svg>`;
 
 const pagePag = document.querySelector('.pagination');
 const pageMainContent = document.querySelector('.main-content');
-const searchForm = document.querySelector('.header__search');
 
 totalAll();
 mainContent();
@@ -38,19 +35,11 @@ switchArrow();
       reseter();
       mainContent();
       renderPagination(page, total);
-      addListener(liElItems);
 
+      addListener();
       switchArrow ();
     })
-  }  searchForm.addEventListener('submit', (e) =>{ //перемикач по кліку на цифри, запуск пагінації після пошуку по слову
-      pageNum(liElItem.textContent*1)
-      //newApiService.pageNum = page;
-      reseter();
-      onInputForm();
-      renderPagination(page, total);
-      addListener(liElItems);
-      switchArrow ();
-  }); 
+  } 
 
 }
 
@@ -108,15 +97,16 @@ function mainContent() {
       container.insertAdjacentHTML('beforeend', mk);
     });
   });
-}
+
+}  
 
 //відбудова кнопок
+function renderPagination() { 
 
-function renderPagination(page, total) { 
   
 
   if (total < 6) {
-    if (page != 1) {
+    if (page != 1) { 
       markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
     }
     for (let p = 1; p <= total; p++) {
@@ -208,4 +198,5 @@ function totalAll() {
       total = totalAll;
     }
   }
-}
+} 
+
