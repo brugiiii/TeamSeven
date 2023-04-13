@@ -39,19 +39,19 @@ switchArrow();
       mainContent();
       renderPagination(page, total);
       addListener(liElItems);
-      switchArrow();
-    });
-  }
-  searchForm.addEventListener('submit', e => {
-    //перемикач по кліку на цифри, запуск пагінації після пошуку по слову
-    pageNum(liElItem.textContent * 1);
-    newApiService.pageNum = page;
-    reseter();
-    onInputForm();
-    renderPagination(page, total);
-    addListener(liElItems);
-    switchArrow();
-  });
+
+      switchArrow ();
+    })
+  }  searchForm.addEventListener('submit', (e) =>{ //перемикач по кліку на цифри, запуск пагінації після пошуку по слову
+      pageNum(liElItem.textContent*1)
+      //newApiService.pageNum = page;
+      reseter();
+      onInputForm();
+      renderPagination(page, total);
+      addListener(liElItems);
+      switchArrow ();
+  }); 
+
 }
 
 //перемикач по кліку на <>
@@ -73,8 +73,10 @@ function switchArrow (){
         addListener();
       }
 
-      if (jsBtnArrow.classList.contains('pagination__arrow-right')) {
-        page = page + 1;
+      
+      if (jsBtnArrow.classList.contains("pagination__arrow-right")) {
+        page = page + 1
+
         newApiService.pageNum = page;
         reseter();
         mainContent();
@@ -195,8 +197,9 @@ function pageNum(newPage) {
 function totalAll() {
   newApiService.fetchPopularMovies().then(res => {
     totalAll = res.total_pages;
-    totalPage(totalAll);
-  });
+
+    totalPage(totalAll)
+  })
 
   function totalPage() {
     if (totalAll > 500) {
