@@ -1,8 +1,5 @@
-
-import {switchArrow, addListener, renderPagination} from './pagination'
-import apiServer from './api-servis'
-import searchRenderBox from '../templates/searchRenger.hbs'
-
+import apiServer from './api-servis';
+import searchRenderBox from '../templates/searchRenger.hbs';
 
 import NewLoader from './loader';
 export { numberOfGeneras, ganreListProcessin };
@@ -23,7 +20,6 @@ export function onInputForm(e) {
   apiServise.query = e.currentTarget.elements.search.value;
   ganreListProcessin().then(createCards);
   e.currentTarget.elements.search.value = '';
-
 }
 async function ganreListProcessin() {
   let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
@@ -42,7 +38,6 @@ async function ganreListProcessin() {
 
 async function createCards(genresBase) {
   try {
-   // newLoader.showLoader();
     await new Promise(resolve => setTimeout(resolve, 300));
     await apiServise.fetchSearchMoviesPages().then(({ results }) => {
       refs.wrongSearchMess.classList.add('visually-hidden');
@@ -80,5 +75,4 @@ async function createCards(genresBase) {
   } catch (error) {
     console.log('createCards', error);
   }
-
 }
