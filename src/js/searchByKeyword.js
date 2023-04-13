@@ -1,8 +1,9 @@
-
 import apiServer from './api-servis';
 import searchRenderBox from '../templates/searchRenger.hbs';
 import NewLoader from './loader';
+
 export { numberOfGeneras, ganreListProcessin, renderOnScreen };
+
 
 const apiServise = new apiServer();
 const newLoader = new NewLoader();
@@ -39,7 +40,9 @@ async function ganreListProcessin() {
 
 async function createCards(genresBase) {
   try {
+
     newLoader.showLoader();
+
     await new Promise(resolve => setTimeout(resolve, 300));
     
     await apiServise.fetchSearchMoviesPages().then(({ results }) => {
@@ -53,8 +56,10 @@ async function createCards(genresBase) {
         }, timeMessage);
         return;
       }
+
       renderOnScreen( results , genresBase);
       
+
 
     });
     newLoader.hideLoader();
