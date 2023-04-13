@@ -2,12 +2,12 @@ import { load, storageKeys } from './localStorage';
 import cardTemplate from '../templates/cardTemplate.hbs';
 
 export const loadFromStorageWatched = () => {
-  const results = load(storageKeys.WATCHED); console.log(results);
+  const results = load(storageKeys.WATCHED) || [];
   updateMarkupLibrary(results);
 };
 
 export const loadFromStorageQueue = () => {
-  const results = load(storageKeys.QUEUE);
+  const results = load(storageKeys.QUEUE) || [];
   updateMarkupLibrary(results);
 };
 

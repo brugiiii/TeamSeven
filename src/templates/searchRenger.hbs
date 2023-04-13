@@ -1,16 +1,11 @@
-
-{{#each articleStore }}
-<li class='card-item' data-action="{{id}}">
-  <div class='card-img'>
-    <img
-      src='{{poster_path}}'
-      class='card-img-top'
-      alt='{{title}}'
-    />
-  </div>
-  <div class='card-body'>
-    <p class='card-title'>{{title}}</p>
-    <p class='card-text'>{{currentGanre}} | {{release_date}}</p>
-  </div>
-</li>
+{{#each articleStore}}
+  <li class='card-item' data-action='{{id}}'>
+    <div class='card-img'>
+      <img src='{{poster_path}}' class='card-img-top' alt='{{title}}' />
+    </div>
+    <div class='card-body'>
+      <p class='card-title'>{{title}}</p>
+      <p class='card-text'>{{currentGanre}} | {{release_date}}</p>
+    </div>
+  </li>
 {{/each}}

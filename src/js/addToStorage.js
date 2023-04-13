@@ -32,8 +32,12 @@ export const onBtnAddToLibrary = event => {
   
 function saveToStorage(array, key, keyValue, event) {
     const movie = JSON.parse(localStorage.getItem('modalMovieData'));
-    array.push(movie);
-    save(key, array);
+    const movieId = movie.id;
+    const checkMovie = array.find(film => film.id === movieId);
+    if (!checkMovie) {
+      array.push(movie);
+      save(key, array);
+    }
     event.target.innerText = `REMOVE FROM ${keyValue}`;
 }
 
