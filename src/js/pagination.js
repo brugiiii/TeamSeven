@@ -1,7 +1,7 @@
 //імпорт асинхронної функції феч з отриманням даних з сервера 
 import cardTemplate from '../templates/cardTemplate.hbs'
 import NewApiService from './api-servis'
-import onInputForm from './searchByKeyword'
+import {onInputForm} from './searchByKeyword'
 const newApiService = new NewApiService()
 
 let page = 1;
