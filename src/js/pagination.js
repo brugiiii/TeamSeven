@@ -1,7 +1,8 @@
 //імпорт асинхронної функції феч з отриманням даних з сервера 
-import cardTemplate from '../templates/cardTemplate.hbs';
-import NewApiService from './api-servis';
-const newApiService = new NewApiService();
+import cardTemplate from '../templates/cardTemplate.hbs'
+import NewApiService from './api-servis'
+import onInputForm from './searchByKeyword'
+const newApiService = new NewApiService()
 
 let page = 1;
 let total = 20;
@@ -12,6 +13,7 @@ const RIGHT_ARROW = `<svg class="pagination__icon-rigth"></svg>`;
 
 const pagePag = document.querySelector('.pagination');
 const pageMainContent = document.querySelector('.main-content');
+const searchForm = document.querySelector('.header__search');
 
 totalAll()
 mainContent();
@@ -21,7 +23,7 @@ switchArrow();
 
 
 //перемикач по кліку на цифри
-function addListener(){
+ export function addListener(){
   const liElItems = document.querySelectorAll(".pagination__btn");
   for (const liElItem of liElItems) {
     
@@ -36,12 +38,20 @@ function addListener(){
       renderPagination(page, total);
       addListener(liElItems);
       switchArrow ();
-    }); 
-  }  
+    })
+  }  searchForm.addEventListener('submit', (e) =>{ //перемикач по кліку на цифри, запуск пагінації після пошуку по слову
+      pageNum(liElItem.textContent*1)
+      newApiService.pageNum = page;
+      reseter();
+      onInputForm();
+      renderPagination(page, total);
+      addListener(liElItems);
+      switchArrow ();
+  }); 
 }
 
 //перемикач по кліку на <>
-function switchArrow (){
+export function switchArrow (){
   const jsBtnArrows = document.querySelectorAll(".js-arrow");
   
   for (const jsBtnArrow of jsBtnArrows){
@@ -86,7 +96,7 @@ function mainContent () {
 } 
 
 //відбудова кнопок
-function renderPagination(page, total) { 
+export function renderPagination(page, total) { 
   
   if (total < 6) {
     if (page != 1) {
