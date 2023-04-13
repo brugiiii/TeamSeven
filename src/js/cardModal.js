@@ -57,6 +57,25 @@ function openModal() {
 
     const addToWatchedBtn = document.querySelector('.modal-button__primary');
     const addToQueueBtn = document.querySelector('.modal-button__secondary');
+
+    //buttons
+    const watchedStorage = load(storageKeys.WATCHED) || [];
+    const queueStorage = load(storageKeys.QUEUE) || [];
+    
+    if (watchedStorage.find(film => film.id === Number(idValue))) {
+      addToWatchedBtn.innerText = 'REMOVE FROM WATCHED';
+    } 
+    else {
+      addToWatchedBtn.innerText = 'ADD TO WATCHED';
+    }
+
+    if (queueStorage.find(film => film.id === Number(idValue))) {
+      addToQueueBtn.innerText = 'REMOVE FROM QUEUE';
+    } else {
+      addToQueueBtn.innerText = 'ADD TO QUEUE';
+    }
+    //buttons
+
     addToWatchedBtn.addEventListener('click', evt => {
       saveDataMovie(evt, results);
     });

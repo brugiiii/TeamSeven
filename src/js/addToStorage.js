@@ -33,7 +33,7 @@ export const onBtnAddToLibrary = event => {
 function saveToStorage(array, key, keyValue, event) {
     const movie = JSON.parse(localStorage.getItem('modalMovieData'));
     const movieId = movie.id;
-    const checkMovie = array.find(film => film.id === movieId);  console.log(checkMovie);
+    const checkMovie = array.find(film => film.id === movieId);
     if (!checkMovie) {
       array.push(movie);
       save(key, array);
