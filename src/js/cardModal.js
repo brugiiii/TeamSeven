@@ -3,21 +3,15 @@ import modalTemplate from '../templates/modalTemplate.hbs';
 import { storageKeys, load, save } from './localStorage';
 import * as addingToStorage from './addToStorage';
 
-
-
 const newApiService = new NewApiService();
 
 const refs = {
   bodyEl: document.querySelector('body'),
   containerEl: document.querySelector('.main-content'),
   backdropEl: document.querySelector('.backdrop.cardModal'),
-
-  modalEl: document.querySelector('.backdrop.cardModal .modal'),
-
+  modalEl: document.querySelector('.backdrop.cardModal .modal-content'),
   closeBtn: document.querySelector('.modal-button'),
-
 };
-
 
 refs.containerEl.addEventListener('click', onClick);
 
@@ -33,9 +27,8 @@ function onClick(evt) {
   const idDatas = evt.target.closest('.card-item');
   idValue = idDatas.dataset.action;
 
-  openModal();
+  openModal(idValue);
 }
-
 
 function openModal(id) {
   newApiService.fetchPopularMovies().then(({ results }) => {
@@ -46,27 +39,24 @@ function openModal(id) {
 
     const markup = modalTemplate(movie);
 
-
     refs.modalEl.innerHTML = markup;
     refs.backdropEl.classList.remove('is-hidden');
 
     refs.bodyEl.addEventListener('click', onBackdrop);
     refs.bodyEl.addEventListener('keydown', onEscBtn);
-
-
     refs.closeBtn.addEventListener('click', closeModal);
+
+    console.log(refs.closeBtn);
 
     const addToWatchedBtn = document.querySelector('.modal-button__primary');
     const addToQueueBtn = document.querySelector('.modal-button__secondary');
     addToWatchedBtn.addEventListener('click', evt => {
       saveDataMovie(evt, movie);
     });
-  
+
     addToQueueBtn.addEventListener('click', evt => {
-        saveDataMovie(evt, movie);
+      saveDataMovie(evt, movie);
     });
-
-
   });
 }
 
@@ -87,6 +77,7 @@ function onEscBtn(e) {
 }
 
 function closeModal() {
+  console.log(1);
   refs.backdropEl.classList.add('is-hidden');
   refs.bodyEl.style.overflow = 'visible';
 }
