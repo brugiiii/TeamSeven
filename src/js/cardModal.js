@@ -4,7 +4,6 @@ import modalTemplate from '../templates/modalTemplate.hbs';
 import { storageKeys, load, save } from './localStorage';
 import * as addingToStorage from './addToStorage';
 
-
 const newApiService = new NewApiService();
 
 const refs = {
@@ -48,8 +47,6 @@ function openModal(id) {
     refs.bodyEl.addEventListener('keydown', onEscBtn);
     refs.closeBtn.addEventListener('click', closeModal);
 
-    console.log(refs.closeBtn);
-
     const addToWatchedBtn = document.querySelector('.modal-button__primary');
     const addToQueueBtn = document.querySelector('.modal-button__secondary');
     addToWatchedBtn.addEventListener('click', evt => {
@@ -75,13 +72,11 @@ function onEscBtn(e) {
 
     refs.bodyEl.removeEventListener('keydown', onEscBtn);
   }
-  console.log(1);
 }
 
 function closeModal() {
-  console.log(1);
   refs.backdropEl.classList.add('is-hidden');
-  refs.bodyEl.style.overflow = 'visible'; 
+  refs.bodyEl.style.overflow = 'visible';
 }
 
 function saveDataMovie(evt, movie) {
