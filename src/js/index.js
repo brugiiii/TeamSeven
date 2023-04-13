@@ -3,3 +3,4 @@ import './searchByKeyword';
 import './cardModal';
 import './pagination';
 import './upBtn';
+import './renderCards';
