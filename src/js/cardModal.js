@@ -1,7 +1,9 @@
 import NewApiService from './api-servis';
 import modalTemplate from '../templates/modalTemplate.hbs';
+
 import { storageKeys, load, save } from './localStorage';
 import * as addingToStorage from './addToStorage';
+
 
 const newApiService = new NewApiService();
 
@@ -79,7 +81,7 @@ function onEscBtn(e) {
 function closeModal() {
   console.log(1);
   refs.backdropEl.classList.add('is-hidden');
-  refs.bodyEl.style.overflow = 'visible';
+  refs.bodyEl.style.overflow = 'visible'; 
 }
 
 function saveDataMovie(evt, movie) {

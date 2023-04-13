@@ -1,12 +1,21 @@
 const addToWatchedBtn = document.querySelector('.modal-button__primary'); 
 const addToQueueBtn = document.querySelector('.modal-button__secondary'); 
 
-addToWatchedBtn.addEventListener('click', changeWatchedBtnToRemuve);
-addToQueueBtn.addEventListener('click', changeQueueBtnToRemuve);
+export { watchedBtnToRemuve, queueBtnToRemuve, remuveBtnToWatched, remuveBtnToQueue };
 
-export function changeWatchedBtnToRemuve(){  
+function watchedBtnToRemuve() {  
+    addToWatchedBtn.addEventListener('click', watchedBtnToRemuve);
   addToWatchedBtn.textContent = 'Remove from watched';
 };
-export function changeQueueBtnToRemuve(){  
-  addToWatchedBtn.textContent = 'Remove from queue';
+ function queueBtnToRemuve() {  
+    addToQueueBtn.addEventListener('click', queueBtnToRemuve);
+  addToQueueBtn.textContent = 'Remove from queue';
+};
+function remuveBtnToWatched() {  
+    addToWatchedBtn.addEventListener('click', remuveBtnToWatched);
+  addToWatchedBtn.textContent = 'Add to watched';
+};
+ function remuveBtnToQueue() {  
+    addToQueueBtn.addEventListener('click', remuveBtnToQueue);
+  addToQueueBtn.textContent = 'Add to queue';
 };
