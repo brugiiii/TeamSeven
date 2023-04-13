@@ -1,6 +1,5 @@
 import NewApiService from './api-servis';
 import modalTemplate from '../templates/modalTemplate.hbs';
-
 import { storageKeys, load, save } from './localStorage';
 import * as addingToStorage from './addToStorage';
 
@@ -10,6 +9,7 @@ const refs = {
   bodyEl: document.querySelector('body'),
   containerEl: document.querySelector('.main-content'),
   backdropEl: document.querySelector('.backdrop.cardModal'),
+
   modalEl: document.querySelector('.backdrop.cardModal .modal-content'),
   closeBtn: document.querySelector('.modal-button'),
 };
@@ -28,17 +28,23 @@ function onClick(evt) {
   const idDatas = evt.target.closest('.card-item');
   idValue = idDatas.dataset.action;
 
-  openModal(idValue);
+  openModal();
 }
 
-function openModal(id) {
-  newApiService.fetchPopularMovies().then(({ results }) => {
-    const movie = results.find(result => result.id.toString() === id);
-    if (!movie) {
-      return;
-    }
+async function fetchMovieDetails(id) {
+  const BASE_URL = `https://api.themoviedb.org/3`;
+  const KEY = `0d7a3e0f2906a3f05e73804ba320517e`;
+  const url = `${BASE_URL}/movie/${id}?api_key=${KEY}`;
 
-    const markup = modalTemplate(movie);
+  const response = await fetch(url);
+  const result = await response.json();
+  console.log(result);
+  return result;
+}
+
+function openModal() {
+  fetchMovieDetails(idValue).then(results => {
+    const markup = modalTemplate(results);
 
     refs.modalEl.innerHTML = markup;
     refs.backdropEl.classList.remove('is-hidden');
@@ -46,6 +52,8 @@ function openModal(id) {
     refs.bodyEl.addEventListener('click', onBackdrop);
     refs.bodyEl.addEventListener('keydown', onEscBtn);
     refs.closeBtn.addEventListener('click', closeModal);
+
+    refs.bodyEl.style.overflow = 'hidden';
 
     const addToWatchedBtn = document.querySelector('.modal-button__primary');
     const addToQueueBtn = document.querySelector('.modal-button__secondary');
@@ -72,6 +80,7 @@ function onEscBtn(e) {
 
     refs.bodyEl.removeEventListener('keydown', onEscBtn);
   }
+  console.log(1);
 }
 
 function closeModal() {
