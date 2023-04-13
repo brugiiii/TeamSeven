@@ -22,6 +22,7 @@ export default class Loader {
     }
   }
 
+
 }
 
 // showLoader();

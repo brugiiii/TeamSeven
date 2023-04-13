@@ -1,13 +1,7 @@
 import apiServer from './api-servis';
 import searchRenderBox from '../templates/searchRenger.hbs'
-export{numberOfGeneras, ganreListProcessin}
+
 const apiServise = new apiServer();
-
-
-import Loader from './loader';
-const loader = new Loader();
-
-
 const numberOfGeneras = 4;
 
 const refs = {
@@ -25,27 +19,26 @@ refs.searchForm.addEventListener('submit', onInputForm);
 
 }
 
-    async function ganreListProcessin(){
-    let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
-   
-    try {
-  
-      if(!localStorage.getItem('ganre-List')){
-  
-         const  ganres =  await apiServise.fetchGenresMovies();     
-          comparisonList = ganres;
-           
-          const localStorageJson = JSON.stringify(ganres);
-          localStorage.setItem('ganre-List',localStorageJson);
-      }
-      
-    } catch (error) {
-      console.log("ganreListProcessin", error);
+
+async function ganreListProcessin(){
+  let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
+ 
+  try {
+
+    if(!localStorage.getItem('ganre-List')){
+
+       const  ganres =  await apiServise.fetchGenresMovies();     
+        comparisonList = ganres;
+         
+        const localStorageJson = JSON.stringify(ganres);
+        localStorage.setItem('ganre-List',localStorageJson);
     }
-    return comparisonList;
+    
+  } catch (error) {
+    console.log("ganreListProcessin", error);
   }
-
-
+  return comparisonList;
+}
 
 async function createCards(genresBase){
     try{
@@ -56,28 +49,34 @@ async function createCards(genresBase){
               return;
             } 
 
+            const articleStore = results.map(({title, release_date, poster_path, genre_ids, id}) =>{
+                release_date = release_date.slice(0,4);
+                poster_path = `https://image.tmdb.org/t/p/w500${poster_path}`;
 
-async function createCards(array) {
-  try {
-    loader.showLoader();
+                const genres = [...genresBase.genres];
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
+                 const genreIds = genre_ids;
+                 let genresNames = [];
+                 const other ="Other"
 
-    await apiServise.fetchSearchMoviesPages().then(({ results }) => {
-      const articleStore = results.map(
-        ({ title, release_date, poster_path, genre_ids, id }) => {
-          release_date = release_date.slice(0, 4);
-          poster_path = `https://image.tmdb.org/t/p/w500${poster_path}`;
-          return { title, release_date, poster_path, genre_ids, id };
-        }
-      );
-      const markup = searchRenderBox({ articleStore });
-      refs.main.innerHTML = markup;
+                for (let i = 0; i < genreIds.length; i++) {
+                  const genre = genres.find(g => g.id === genreIds[i]);
+                  genresNames.push(genre.name); 
+                }
+               let currentGanre = [...genresNames.slice(0,2), other].join(' ');
 
-      loader.hideLoader();
-    });
-  } catch (error) {
-    console.log('createCards', error);
-  }
+                if( genresNames.length < numberOfGeneras ){
+                  currentGanre = [...genresNames].join(' ');
+                }
+                  
+               return {title, release_date, currentGanre, poster_path, id};
+            });
+             const markup = searchRenderBox({articleStore});
+             refs.main.innerHTML = markup;       
+        });    
+    } catch (error) {
+        console.log("createCards", error);
+    }
+    
 
 }

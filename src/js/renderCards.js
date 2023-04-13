@@ -1,6 +1,8 @@
 import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
+
 import { numberOfGeneras ,ganreListProcessin} from './searchByKeyword'
+
 const newApiService = new NewApiService();
 
 
