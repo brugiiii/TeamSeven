@@ -51,8 +51,9 @@ function openModal() {
 
     refs.bodyEl.addEventListener('click', onBackdrop);
     refs.bodyEl.addEventListener('keydown', onEscBtn);
-
     refs.closeBtn.addEventListener('click', closeModal);
+
+    refs.bodyEl.style.overflow = 'hidden';
 
     const addToWatchedBtn = document.querySelector('.modal-button__primary');
     const addToQueueBtn = document.querySelector('.modal-button__secondary');
