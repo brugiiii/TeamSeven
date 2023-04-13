@@ -1,4 +1,3 @@
-import {switchArrow, addListener, renderPagination} from './pagination'
 import apiServer from './api-servis'
 import searchRenderBox from '../templates/searchRenger.hbs'
 

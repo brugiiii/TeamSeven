@@ -23,7 +23,7 @@ switchArrow();
 
 
 //перемикач по кліку на цифри
- export function addListener(){
+ function addListener(){
   const liElItems = document.querySelectorAll(".pagination__btn");
   for (const liElItem of liElItems) {
     
@@ -51,7 +51,7 @@ switchArrow();
 }
 
 //перемикач по кліку на <>
-export function switchArrow (){
+function switchArrow (){
   const jsBtnArrows = document.querySelectorAll(".js-arrow");
   
   for (const jsBtnArrow of jsBtnArrows){
@@ -96,7 +96,7 @@ function mainContent () {
 } 
 
 //відбудова кнопок
-export function renderPagination(page, total) { 
+function renderPagination(page, total) { 
   
   if (total < 6) {
     if (page != 1) {
