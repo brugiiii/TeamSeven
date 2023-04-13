@@ -40,7 +40,7 @@ async function ganreListProcessin() {
 
 async function createCards(genresBase) {
   try {
-    newLoader.showLoader();
+     newLoader.showLoader();
     await new Promise(resolve => setTimeout(resolve, 300));
     await apiServise.fetchSearchMoviesPages().then(({ results }) => {
       refs.wrongSearchMess.classList.add('visually-hidden');
@@ -57,23 +57,23 @@ async function createCards(genresBase) {
         ({ title, release_date, poster_path, genre_ids, id }) => {
           release_date = release_date.slice(0, 4);
           poster_path = `https://image.tmdb.org/t/p/w500${poster_path}`;
+         
           const genres = [...genresBase.genres];
           const genreIds = genre_ids;
           let genresNames = [];
           const other = 'Other';
+
           for (let i = 0; i < genreIds.length; i++) {
             const genre = genres.find(g => g.id === genreIds[i]);
             genresNames.push(genre.name);
           }
+
           let currentGanre = null;
          if (genresNames.length < numberOfGeneras) {
                currentGanre = genresNames.join(',  ');
            } else {
             currentGanre = [...genresNames.slice(0, 2), other].join(', ');
            }
-         
-
-
           return { title, release_date, currentGanre, poster_path, id };
         }
       );
