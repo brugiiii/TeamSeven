@@ -1,4 +1,7 @@
+<<<<<<< Updated upstream
 import {watchedBtnToRemuve, queueBtnToRemuve, remuveBtnToWatched, remuveBtnToQueue} from './remove-Button';
+=======
+>>>>>>> Stashed changes
 const load = key => {
   try {
     const serializedState = localStorage.getItem(key);
@@ -9,6 +12,7 @@ const load = key => {
   }
 };
 
+<<<<<<< Updated upstream
 const save = (key, value) => { 
     try { 
       const serializedState = JSON.stringify(value);
@@ -16,6 +20,12 @@ const save = (key, value) => {
     } catch (error) {
       console.error('Set items error: ', error.message);
     }
+=======
+
+export const storageKeys = {
+  WATCHED: 'watched',
+  QUEUE: 'queue',
+>>>>>>> Stashed changes
 };
 
 const remove = key => {
