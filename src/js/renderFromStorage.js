@@ -4,29 +4,11 @@ import cardTemplate from '../templates/cardTemplate.hbs';
 export const loadFromStorageWatched = () => {
   const results = load(storageKeys.WATCHED) || [];
   updateMarkupLibrary(results);
-
-  //btn style
-  document
-    .querySelector('.library__btn-watched')
-    .setAttribute('class', 'library__btn-watched button-active button');
-  document
-    .querySelector('.library__btn-queue')
-    .setAttribute('class', 'library__btn-queue button-disabled button');
-
 };
 
 export const loadFromStorageQueue = () => {
   const results = load(storageKeys.QUEUE) || [];
   updateMarkupLibrary(results);
-
-  //btn style
-  document
-    .querySelector('.library__btn-watched')
-    .setAttribute('class', 'library__btn-watched button-disabled button');
-  document
-    .querySelector('.library__btn-queue')
-    .setAttribute('class', 'library__btn-queue button-active button');
-
 };
 
 function updateMarkupLibrary(results){
