@@ -1,13 +1,11 @@
-
 import apiServer from './api-servis';
 import searchRenderBox from '../templates/searchRenger.hbs';
 
-import NewLoader from './loader';
+import Loader from './loader';
 export { numberOfGeneras, ganreListProcessin };
 
-
 const apiServise = new apiServer();
-const newLoader = new NewLoader();
+const loader = new Loader();
 const numberOfGeneras = 4;
 const timeMessage = 4000;
 const refs = {
@@ -22,6 +20,7 @@ export function onInputForm(e) {
   apiServise.query = e.currentTarget.elements.search.value;
   ganreListProcessin().then(createCards);
   e.currentTarget.elements.search.value = '';
+  refs.main.innerHTML = '';
 }
 async function ganreListProcessin() {
   let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
@@ -40,7 +39,9 @@ async function ganreListProcessin() {
 
 async function createCards(genresBase) {
   try {
-    await new Promise(resolve => setTimeout(resolve, 300));
+    loader.showLoader();
+
+    await new Promise(resolve => setTimeout(resolve, 500));
     await apiServise.fetchSearchMoviesPages().then(({ results }) => {
       refs.wrongSearchMess.classList.add('visually-hidden');
       if (!results.length) {
@@ -50,7 +51,6 @@ async function createCards(genresBase) {
         }, timeMessage);
         return;
       }
-      newLoader.showLoader();
       const articleStore = results.map(
         ({ title, release_date, poster_path, genre_ids, id }) => {
           release_date = release_date.slice(0, 4);
@@ -72,8 +72,8 @@ async function createCards(genresBase) {
       );
       const markup = searchRenderBox({ articleStore });
       refs.main.innerHTML = markup;
-      newLoader.hideLoader();
     });
+    loader.hideLoader();
   } catch (error) {
     console.log('createCards', error);
   }
