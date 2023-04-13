@@ -47,7 +47,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
+  width: auto;
   height: 40px;
   color: #000000;
   background-color: inherit;
@@ -63,6 +63,7 @@
   &-active  {
     color:  #FFFFFF;
     background-color: #B92F2C;
+    width: 40px;
   }
  
   &-pale {

@@ -41,7 +41,7 @@ switchArrow();
     })
   }  searchForm.addEventListener('submit', (e) =>{ //перемикач по кліку на цифри, запуск пагінації після пошуку по слову
       pageNum(liElItem.textContent*1)
-      newApiService.pageNum = page;
+      //newApiService.pageNum = page;
       reseter();
       onInputForm();
       renderPagination(page, total);
@@ -65,7 +65,7 @@ function switchArrow (){
         renderPagination(page, total);
         switchArrow ();
         addListener();
-      };
+      }
       
       if (jsBtnArrow.classList.contains("pagination__arrow-right")) {
         page = page + 1
