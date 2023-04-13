@@ -1,9 +1,9 @@
 import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
 import { numberOfGeneras, ganreListProcessin } from './searchByKeyword';
-import NewLoader from './loader'; 
+import NewLoader from './loader';
 
-const newApiService = new NewApiService(); 
+const newApiService = new NewApiService();
 const newLoader = new NewLoader();
 
 ganreListProcessin().then(fetchData);

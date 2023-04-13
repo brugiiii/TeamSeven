@@ -25,9 +25,8 @@
           <p><span>{{vote_average}}</span> / {{vote_count}}</p>
           <p>{{popularity}}</p>
           <p>{{original_title}}</p>
-          {{#each genres}}
-            <p>{{name}}</p>
-          {{/each}}
+          <p>{{#each genres}} {{name}},{{/each}}</p>
+
         </li>
       </ul>
     </div>
