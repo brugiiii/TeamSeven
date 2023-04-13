@@ -1,9 +1,10 @@
 
 import apiServer from './api-servis';
-import searchRenderBox from '../templates/searchRenger.hbs';
-
+import searchRenderBox from '../templates/searchRenger.hbs'
 import NewLoader from './loader';
+
 export { numberOfGeneras, ganreListProcessin };
+
 
 
 const apiServise = new apiServer();
@@ -17,11 +18,18 @@ const refs = {
 };
 refs.searchForm.addEventListener('submit', onInputForm);
 
+
+  function onInputForm(e){
+    e.preventDefault();
+    apiServise.query = e.currentTarget.elements.search.value;
+     ganreListProcessin().then(createCards);  
+
 export function onInputForm(e) {
   e.preventDefault();
   apiServise.query = e.currentTarget.elements.search.value;
   ganreListProcessin().then(createCards);
   e.currentTarget.elements.search.value = '';
+
 }
 async function ganreListProcessin() {
   let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
@@ -37,6 +45,7 @@ async function ganreListProcessin() {
   }
   return comparisonList;
 }
+
 
 async function createCards(genresBase) {
   try {
@@ -77,4 +86,6 @@ async function createCards(genresBase) {
   } catch (error) {
     console.log('createCards', error);
   }
+
 }
+ 
