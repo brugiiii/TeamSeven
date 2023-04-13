@@ -1,8 +1,10 @@
+
 import apiServer from './api-servis';
 import searchRenderBox from '../templates/searchRenger.hbs';
 
 import NewLoader from './loader';
 export { numberOfGeneras, ganreListProcessin };
+
 
 const apiServise = new apiServer();
 const newLoader = new NewLoader();

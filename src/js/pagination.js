@@ -1,8 +1,10 @@
-//імпорт асинхронної функції феч з отриманням даних з сервера
-import cardTemplate from '../templates/cardTemplate.hbs';
-import NewApiService from './api-servis';
-import onInputForm from './searchByKeyword';
-const newApiService = new NewApiService();
+
+//імпорт асинхронної функції феч з отриманням даних з сервера 
+import cardTemplate from '../templates/cardTemplate.hbs'
+import NewApiService from './api-servis'
+import {onInputForm} from './searchByKeyword'
+const newApiService = new NewApiService()
+
 
 let page = 1;
 let total = 20;
@@ -22,8 +24,10 @@ addListener();
 switchArrow();
 
 //перемикач по кліку на цифри
-export function addListener() {
-  const liElItems = document.querySelectorAll('.pagination__btn');
+
+ function addListener(){
+  const liElItems = document.querySelectorAll(".pagination__btn");
+
   for (const liElItem of liElItems) {
     if (liElItem.classList.contains('pagination__points')) {
       continue;
@@ -51,12 +55,15 @@ export function addListener() {
 }
 
 //перемикач по кліку на <>
-export function switchArrow() {
-  const jsBtnArrows = document.querySelectorAll('.js-arrow');
 
-  for (const jsBtnArrow of jsBtnArrows) {
-    jsBtnArrow.addEventListener('click', e => {
-      if (jsBtnArrow.classList.contains('pagination__arrow-left')) {
+function switchArrow (){
+  const jsBtnArrows = document.querySelectorAll(".js-arrow");
+  
+  for (const jsBtnArrow of jsBtnArrows){
+    jsBtnArrow.addEventListener ('click', (e) => {
+  
+      if (jsBtnArrow.classList.contains("pagination__arrow-left")) {
+
         page = page - 1;
         newApiService.pageNum = page;
         reseter();
@@ -102,7 +109,10 @@ function mainContent() {
 }
 
 //відбудова кнопок
-export function renderPagination(page, total) {
+
+function renderPagination(page, total) { 
+  
+
   if (total < 6) {
     if (page != 1) {
       markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
