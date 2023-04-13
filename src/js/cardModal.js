@@ -38,7 +38,7 @@ async function fetchMovieDetails(id) {
 
   const response = await fetch(url);
   const result = await response.json();
-  console.log(result);
+  //console.log(result);
   return result;
 }
 
@@ -58,11 +58,11 @@ function openModal() {
     const addToWatchedBtn = document.querySelector('.modal-button__primary');
     const addToQueueBtn = document.querySelector('.modal-button__secondary');
     addToWatchedBtn.addEventListener('click', evt => {
-      saveDataMovie(evt, movie);
+      saveDataMovie(evt, results);
     });
 
     addToQueueBtn.addEventListener('click', evt => {
-      saveDataMovie(evt, movie);
+      saveDataMovie(evt, results);
     });
   });
 }
