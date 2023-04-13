@@ -1,18 +1,23 @@
 import NewApiService from './api-servis';
 import modalTemplate from '../templates/modalTemplate.hbs';
 
+import { storageKeys, load, save } from './localStorage';
+import * as addingToStorage from './addToStorage';
+
+
 const newApiService = new NewApiService();
 
 const refs = {
   bodyEl: document.querySelector('body'),
   containerEl: document.querySelector('.main-content'),
   backdropEl: document.querySelector('.backdrop.cardModal'),
-
   modalEl: document.querySelector('.backdrop.cardModal .modal-content'),
   closeBtn: document.querySelector('.modal-button'),
-}
+};
 
 refs.containerEl.addEventListener('click', onClick);
+
+let idValue = 0;
 
 function onClick(evt) {
   const target = evt.target.nodeName;
@@ -22,7 +27,7 @@ function onClick(evt) {
   }
 
   const idDatas = evt.target.closest('.card-item');
-  const idValue = idDatas.dataset.action;
+  idValue = idDatas.dataset.action;
 
   openModal(idValue);
 }
@@ -34,27 +39,7 @@ function openModal(id) {
       return;
     }
 
-    const {
-      poster_path,
-      original_title,
-      vote_average,
-      vote_count,
-      popularity,
-      genre_ids,
-      overview,
-    } = movie;
-
-    const genres = genre_ids.join(', ');
-
-    const markup = modalTemplate({
-      poster_path,
-      original_title,
-      vote_average,
-      vote_count,
-      popularity,
-      genres,
-      overview,
-    });
+    const markup = modalTemplate(movie);
 
     refs.modalEl.innerHTML = markup;
     refs.backdropEl.classList.remove('is-hidden');
@@ -62,6 +47,18 @@ function openModal(id) {
     refs.bodyEl.addEventListener('click', onBackdrop);
     refs.bodyEl.addEventListener('keydown', onEscBtn);
     refs.closeBtn.addEventListener('click', closeModal);
+
+    console.log(refs.closeBtn);
+
+    const addToWatchedBtn = document.querySelector('.modal-button__primary');
+    const addToQueueBtn = document.querySelector('.modal-button__secondary');
+    addToWatchedBtn.addEventListener('click', evt => {
+      saveDataMovie(evt, movie);
+    });
+
+    addToQueueBtn.addEventListener('click', evt => {
+      saveDataMovie(evt, movie);
+    });
   });
 }
 
@@ -78,9 +75,16 @@ function onEscBtn(e) {
 
     refs.bodyEl.removeEventListener('keydown', onEscBtn);
   }
+  console.log(1);
 }
 
 function closeModal() {
+  console.log(1);
   refs.backdropEl.classList.add('is-hidden');
   refs.bodyEl.style.overflow = 'visible'; 
+}
+
+function saveDataMovie(evt, movie) {
+  localStorage.setItem('modalMovieData', JSON.stringify(movie));
+  addingToStorage.onBtnAddToLibrary(evt);
 }

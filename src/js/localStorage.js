@@ -1,3 +1,4 @@
+
 import {watchedBtnToRemuve, queueBtnToRemuve, remuveBtnToWatched, remuveBtnToQueue} from './remove-Button';
 const load = key => {
   try {
@@ -9,25 +10,27 @@ const load = key => {
   }
 };
 
-const save = (key, value) => { 
-    try { 
-      const serializedState = JSON.stringify(value);
-      localStorage.setItem(key, serializedState);
-    } catch (error) {
-      console.error('Set items error: ', error.message);
-    }
+
+export const storageKeys = {
+  WATCHED: 'watched',
+  QUEUE: 'queue',
+
 };
 
-const remove = key => {
-  try {
-    localStorage.removeItem(key);
+export const save = (key, value) => { 
+  try { 
+    const serializedState = JSON.stringify(value);
+    localStorage.setItem(key, serializedState);
   } catch (error) {
-    console.error('Remove state error: ', error.message);
+    console.error('Set items error: ', error.message);
   }
 };
 
-export default {
-  load,  
-  save, 
-  remove,
+export const load = key => {
+  try {
+    const serializedState = localStorage.getItem(key);
+    return serializedState === null ? undefined : JSON.parse(serializedState);
+  } catch (error) {
+    console.error('Get state error: ', error.message);
+  }
 };
