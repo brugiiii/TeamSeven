@@ -19,7 +19,7 @@ async function fetchData(genresBase) {
     });
 
     newLoader.hideLoader();
-
+    
   } catch (error) {
     console.error('Помилка під час отримання даних:', error);
   }

@@ -54,6 +54,8 @@ async function createCards(genresBase) {
         return;
       }
       renderOnScreen( results , genresBase);
+      
+
     });
     newLoader.hideLoader();
   } catch (error) {
