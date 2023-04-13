@@ -1,10 +1,11 @@
 .back-to-top {
   position: fixed;
-  bottom: 150px;
-  right: 50px;
 
-  height: 60px;
-  width: 60px;
+  bottom: 50px;
+  right: 30px;
+
+  height: 50px;
+  width: 50px;
 
   border-color: transparent;
   border-radius: 50%;
@@ -12,6 +13,17 @@
   background-color: #b92f2c;
   transition: opacity 200ms linear;
   opacity: 1;
+
+  @media screen and(min-width:768px) {
+    right: 50px;
+
+    height: 60px;
+    width: 60px;
+  }
+
+  @media screen and(min-width:1280px) {
+    right: 70px;
+  }
 
   &:hover,
   &:focus {
