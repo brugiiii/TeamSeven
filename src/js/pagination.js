@@ -182,7 +182,6 @@ function totalAll() {
     totalAll = res.total_pages;
     totalPage(totalAll)
   })
-
   function totalPage() {
     if (totalAll > 500) {
       total = 500
