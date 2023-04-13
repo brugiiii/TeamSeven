@@ -5,7 +5,6 @@ const refs = {
 export default class Loader {
   constructor() {
     this.mainEl = refs.mainEl;
-
     this.preloaderEl = null;
   }
 

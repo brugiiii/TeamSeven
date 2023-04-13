@@ -1,10 +1,10 @@
-
-//імпорт асинхронної функції феч з отриманням даних з сервера 
-import cardTemplate from '../templates/cardTemplate.hbs'
-import NewApiService from './api-servis'
-import {onInputForm} from './searchByKeyword'
-const newApiService = new NewApiService()
-
+//імпорт асинхронної функції феч з отриманням даних з сервера
+import cardTemplate from '../templates/cardTemplate.hbs';
+import NewApiService from './api-servis';
+import { onInputForm } from './searchByKeyword';
+const newApiService = new NewApiService();
+import Loader from './loader';
+const loader = new Loader();
 
 let page = 1;
 let total = 20;
@@ -25,8 +25,8 @@ switchArrow();
 
 //перемикач по кліку на цифри
 
- function addListener(){
-  const liElItems = document.querySelectorAll(".pagination__btn");
+function addListener() {
+  const liElItems = document.querySelectorAll('.pagination__btn');
 
   for (const liElItem of liElItems) {
     if (liElItem.classList.contains('pagination__points')) {
@@ -56,14 +56,12 @@ switchArrow();
 
 //перемикач по кліку на <>
 
-function switchArrow (){
-  const jsBtnArrows = document.querySelectorAll(".js-arrow");
-  
-  for (const jsBtnArrow of jsBtnArrows){
-    jsBtnArrow.addEventListener ('click', (e) => {
-  
-      if (jsBtnArrow.classList.contains("pagination__arrow-left")) {
+function switchArrow() {
+  const jsBtnArrows = document.querySelectorAll('.js-arrow');
 
+  for (const jsBtnArrow of jsBtnArrows) {
+    jsBtnArrow.addEventListener('click', e => {
+      if (jsBtnArrow.classList.contains('pagination__arrow-left')) {
         page = page - 1;
         newApiService.pageNum = page;
         reseter();
@@ -87,32 +85,33 @@ function switchArrow (){
 }
 
 // відбудова карток
-function mainContent() {
+async function mainContent() {
   const pageMainContent = document.querySelector('.main-content');
-  newApiService.fetchPopularMovies().then(({ results }) => {
-    results.map(result => {
-      const { poster_path, original_title, genre_ids, release_date, id } =
-        result;
-      const genres = genre_ids.join(', ');
-      const date = release_date.slice(0, 4);
-      const mk = cardTemplate({
-        poster_path,
-        original_title,
-        genres,
-        date,
-        id,
-      });
-      const container = document.querySelector('.main-content');
-      container.insertAdjacentHTML('beforeend', mk);
+  loader.showLoader();
+  const { results } = await newApiService.fetchPopularMovies();
+
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  results.map(result => {
+    const { poster_path, original_title, genre_ids, release_date, id } = result;
+    const genres = genre_ids.join(', ');
+    const date = release_date.slice(0, 4);
+    const mk = cardTemplate({
+      poster_path,
+      original_title,
+      genres,
+      date,
+      id,
     });
+    const container = document.querySelector('.main-content');
+    container.insertAdjacentHTML('beforeend', mk);
   });
+  loader.hideLoader();
 }
 
 //відбудова кнопок
 
-function renderPagination(page, total) { 
-  
-
+function renderPagination(page, total) {
   if (total < 6) {
     if (page != 1) {
       markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
