@@ -1,19 +1,22 @@
-import $ from 'jquery';
-
 function backToTop() {
-  let button = $('.back-to-top');
+  let button = document.querySelector('.back-to-top');
 
-  $(window).on('scroll', () => {
-    if ($(this).scrollTop() >= 50) {
-      button.fadeIn();
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    if (scrollY >= 300) {
+      button.classList.remove('btn-up_hide');
     } else {
-      button.fadeOut();
+      button.classList.add('btn-up_hide');
     }
   });
 
-  button.on('click', e => {
+  button.addEventListener('click', e => {
     e.preventDefault();
-    $('html').animate({ scrollTop: 0 });
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   });
 }
 backToTop();
