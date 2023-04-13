@@ -1,18 +1,15 @@
 import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
+import Loader from './loader';
 
-import NewLoader from './loader';
-
-
-import { numberOfGeneras ,ganreListProcessin} from './searchByKeyword'
-
+import { numberOfGeneras, ganreListProcessin } from './searchByKeyword';
 
 const newApiService = new NewApiService();
-const newLoader = new NewLoader();
+const loader = new Loader();
 
 async function fetchData() {
   try {
-    newLoader.showLoader();
+    loader.showLoader();
 
     const { results } = await newApiService.fetchPopularMovies();
 
@@ -32,18 +29,13 @@ async function fetchData() {
         id,
       });
 
-
       const container = document.querySelector('.main-content');
       container.insertAdjacentHTML('beforeend', mk);
+      loader.hideLoader();
     });
-
-    newLoader.hideLoader();
-
   } catch (error) {
     console.error('Помилка під час отримання даних:', error);
   }
 }
 
-
 fetchData();
-

@@ -1,8 +1,10 @@
 import apiServer from './api-servis';
 import searchRenderBox from '../templates/searchRenger.hbs';
+import Loader from './loader';
 
 const apiServise = new apiServer();
 const numberOfGeneras = 4;
+const loader = new Loader();
 
 const refs = {
   searchForm: document.querySelector('.header__search'),
@@ -19,6 +21,7 @@ function onInputForm(e) {
   ganreListProcessin().then(createCards);
 
   refs.searchForm.reset();
+  refs.main.innerHTML = '';
 }
 
 async function ganreListProcessin() {
@@ -40,6 +43,9 @@ async function ganreListProcessin() {
 
 async function createCards(genresBase) {
   try {
+    loader.showLoader();
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     await apiServise.fetchSearchMoviesPages().then(({ results }) => {
       refs.wrongSearchMess.classList.add('visually-hidden');
       if (!results.length) {
@@ -73,6 +79,7 @@ async function createCards(genresBase) {
       );
       const markup = searchRenderBox({ articleStore });
       refs.main.innerHTML = markup;
+      loader.hideLoader();
     });
   } catch (error) {
     console.log('createCards', error);
