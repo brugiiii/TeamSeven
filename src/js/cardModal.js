@@ -44,7 +44,19 @@ async function fetchMovieDetails(id) {
 
 function openModal() {
   fetchMovieDetails(idValue).then(results => {
-    const markup = modalTemplate(results);
+    const { poster_path, original_title, vote_count, popularity, overview, genres, name } =
+      results;
+    const votes_average = Math.round(results.vote_average * 10) / 10;
+    const markup = modalTemplate({
+      poster_path,
+      original_title,
+      vote_count,
+      votes_average,
+      popularity,
+      overview,
+      genres,
+      name,
+    });
 
     refs.modalEl.innerHTML = markup;
     refs.backdropEl.classList.remove('is-hidden');
