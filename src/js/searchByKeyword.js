@@ -1,4 +1,5 @@
-import apiServer from './api-servis';
+import {switchArrow, addListener, renderPagination} from './pagination'
+import apiServer from './api-servis'
 import searchRenderBox from '../templates/searchRenger.hbs'
 
 const apiServise = new apiServer();
@@ -12,11 +13,11 @@ const refs = {
 
 refs.searchForm.addEventListener('submit', onInputForm);
 
-  function onInputForm(e){
+ export function onInputForm(e){
     e.preventDefault();
     apiServise.query = e.currentTarget.elements.search.value;
-     ganreListProcessin().then(createCards);  
-
+     ganreListProcessin().then(createCards);
+     
 }
 
 
@@ -78,5 +79,4 @@ async function createCards(genresBase){
         console.log("createCards", error);
     }
     
-
 }
