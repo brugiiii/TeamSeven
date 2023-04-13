@@ -1,7 +1,9 @@
 import apiServer from './api-servis';
 import searchRenderBox from '../templates/searchRenger.hbs'
+
 const apiServise = new apiServer();
 const numberOfGeneras = 4;
+
 const refs = {
     searchForm: document.querySelector('.header__search'),
     main: document.querySelector('.main-content'),
@@ -16,6 +18,7 @@ refs.searchForm.addEventListener('submit', onInputForm);
      ganreListProcessin().then(createCards);  
 
 }
+
 
 async function ganreListProcessin(){
   let comparisonList = JSON.parse(localStorage.getItem('ganre-List'));
@@ -75,4 +78,5 @@ async function createCards(genresBase){
         console.log("createCards", error);
     }
     
+
 }
