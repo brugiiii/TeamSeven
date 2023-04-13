@@ -140,7 +140,7 @@ function renderPaginationS() {
   
   if (totalS < 6) {
     if (pageS != 1) {
-      markupS += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
+      markupS += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROWS}</button>`;
     }
     for (let p = 1; p <= totalS; p++) {
       if (p === pageS) {
@@ -217,7 +217,6 @@ function reseterS(){
 //функція додавання № кінцевої сторінки
 function totalAllS() {
   apiServise.fetchSearchMoviesPages(apiServise.query).then(res => {
-    console.log(apiServise.query)
     totalAllS = res.total_pages;
     totalPageS(totalAllS)
   })
