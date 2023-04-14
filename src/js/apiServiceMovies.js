@@ -27,7 +27,8 @@ export class MoviesServiceByName {
         Notiflix.Notify.info(
           `Nothing was found for your '${this.searchQuery}' request`
         );
-
+        stopLoader();
+        refs.moviesSearchForm.reset();
         return;
       }
       return response;

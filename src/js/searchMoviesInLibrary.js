@@ -55,6 +55,7 @@ function onLibrarySearchFormSubmit(e) {
   } else if (watchedBtn.classList.contains('header__btn-category--current')) {
     searchMovieInLibrary(searchQuery, 'watched');
   }
+  refs.moviesSearchForm.reset();
 }
 
 function searchMovieInLibrary(searchQuery, localStorageItem) {
