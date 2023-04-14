@@ -1,7 +1,11 @@
 import NewLoader from './loader';
 import * as renderingFromStorage from './renderFromStorage';
 import { load, storageKeys } from './localStorage';
+
 import cardTemplate from '../templates/cardTemplateLibrary.hbs';
+
+import cardTemplate from '../templates/cardTemplate.hbs';
+
 import { numberOfGeneras, ganreListProcessin } from './searchByKeyword';
 
 const newLoader = new NewLoader();
@@ -26,6 +30,7 @@ refs.btnQueue.addEventListener('click', evt => {
 });
 //refs.btnWatched.addEventListener('click', renderingFromStorage.loadFromStorageWatched);
 //refs.btnQueue.addEventListener('click', renderingFromStorage.loadFromStorageQueue);
+
 
 async function fetchData(genresBase) {
   try {

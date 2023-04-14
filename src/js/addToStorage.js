@@ -2,9 +2,11 @@ import { storageKeys, load, save } from './localStorage';
 import * as renderingFromStorage from './renderFromStorage';
 
 const libraryBtn = document.querySelector('.header__btn-library');
+
 const btnWatched = document.querySelector('.library__btn-watched');
 const btnQueue =  document.querySelector('.library__btn-queue');
 
+\
 
 export const onBtnAddToLibrary = event => { 
     const watchedMoviesArray = load(storageKeys.WATCHED) || [];
@@ -46,7 +48,13 @@ function saveToStorage(array, key, keyValue, event) {
     }
     event.target.innerText = `REMOVE FROM ${keyValue}`;
 
+
     refreshPage(keyValue);
+
+    if (libraryBtn.classList.contains('accent-btn')) {
+      renderingFromStorage.loadFromStorageWatched();
+    }
+\
 }
 
 function deleteFromStorage(array, key, keyValue, event) {
@@ -56,7 +64,13 @@ function deleteFromStorage(array, key, keyValue, event) {
     save(key, filteredMovie);
     event.target.innerText = `ADD TO ${keyValue}`;
 
+
     refreshPage(keyValue);
+
+    if (libraryBtn.classList.contains('accent-btn')) {
+      renderingFromStorage.loadFromStorageQueue();
+    }
+
 }
 
 function refreshPage(keyValue) {
