@@ -4,80 +4,70 @@ import * as renderingFromStorage from './renderFromStorage';
 const libraryBtn = document.querySelector('.header__btn-library');
 
 const btnWatched = document.querySelector('.library__btn-watched');
-const btnQueue =  document.querySelector('.library__btn-queue');
+const btnQueue = document.querySelector('.library__btn-queue');
 
-\
+export const onBtnAddToLibrary = event => {
+  const watchedMoviesArray = load(storageKeys.WATCHED) || [];
+  const queueMoviesArray = load(storageKeys.QUEUE) || [];
 
-export const onBtnAddToLibrary = event => { 
-    const watchedMoviesArray = load(storageKeys.WATCHED) || [];
-    const queueMoviesArray = load(storageKeys.QUEUE) || [];
-    
-    if (event.target.innerText === 'ADD TO WATCHED') {
-      saveToStorage(
-        watchedMoviesArray,
-        storageKeys.WATCHED,
-        'WATCHED',
-        event
-      );
-    } else if (event.target.innerText === 'REMOVE FROM WATCHED') {
-      deleteFromStorage(
-        watchedMoviesArray,
-        storageKeys.WATCHED,
-        'WATCHED',
-        event
-      );
-    } else if (event.target.innerText === 'ADD TO QUEUE') {
-      saveToStorage(queueMoviesArray, storageKeys.QUEUE, 'QUEUE', event);
-    } else if (event.target.innerText === 'REMOVE FROM QUEUE') {
-      deleteFromStorage(
-        queueMoviesArray,
-        storageKeys.QUEUE,
-        'QUEUE',
-        event
-      );
-    }
+  if (event.target.innerText === 'ADD TO WATCHED') {
+    saveToStorage(watchedMoviesArray, storageKeys.WATCHED, 'WATCHED', event);
+  } else if (event.target.innerText === 'REMOVE FROM WATCHED') {
+    deleteFromStorage(
+      watchedMoviesArray,
+      storageKeys.WATCHED,
+      'WATCHED',
+      event
+    );
+  } else if (event.target.innerText === 'ADD TO QUEUE') {
+    saveToStorage(queueMoviesArray, storageKeys.QUEUE, 'QUEUE', event);
+  } else if (event.target.innerText === 'REMOVE FROM QUEUE') {
+    deleteFromStorage(queueMoviesArray, storageKeys.QUEUE, 'QUEUE', event);
+  }
 };
-  
+
 function saveToStorage(array, key, keyValue, event) {
-    const movie = JSON.parse(localStorage.getItem('modalMovieData'));
-    const movieId = movie.id;
-    const checkMovie = array.find(film => film.id === movieId);
-    if (!checkMovie) {
-      array.push(movie);
-      save(key, array);
-    }
-    event.target.innerText = `REMOVE FROM ${keyValue}`;
+  const movie = JSON.parse(localStorage.getItem('modalMovieData'));
+  const movieId = movie.id;
+  const checkMovie = array.find(film => film.id === movieId);
+  if (!checkMovie) {
+    array.push(movie);
+    save(key, array);
+  }
+  event.target.innerText = `REMOVE FROM ${keyValue}`;
 
+  refreshPage(keyValue);
 
-    refreshPage(keyValue);
-
-    if (libraryBtn.classList.contains('accent-btn')) {
-      renderingFromStorage.loadFromStorageWatched();
-    }
-\
+  if (libraryBtn.classList.contains('accent-btn')) {
+    renderingFromStorage.loadFromStorageWatched();
+  }
 }
 
 function deleteFromStorage(array, key, keyValue, event) {
-    const movie = JSON.parse(localStorage.getItem('modalMovieData'));
-    const movieId = movie.id; 
-    const filteredMovie = array.filter(movie => movie.id !== movieId);
-    save(key, filteredMovie);
-    event.target.innerText = `ADD TO ${keyValue}`;
+  const movie = JSON.parse(localStorage.getItem('modalMovieData'));
+  const movieId = movie.id;
+  const filteredMovie = array.filter(movie => movie.id !== movieId);
+  save(key, filteredMovie);
+  event.target.innerText = `ADD TO ${keyValue}`;
 
+  refreshPage(keyValue);
 
-    refreshPage(keyValue);
-
-    if (libraryBtn.classList.contains('accent-btn')) {
-      renderingFromStorage.loadFromStorageQueue();
-    }
-
+  if (libraryBtn.classList.contains('accent-btn')) {
+    renderingFromStorage.loadFromStorageQueue();
+  }
 }
 
 function refreshPage(keyValue) {
-  if (libraryBtn.classList.contains('accent-btn') && btnWatched.classList.contains('is-active')) {
+  if (
+    libraryBtn.classList.contains('accent-btn') &&
+    btnWatched.classList.contains('is-active')
+  ) {
     renderingFromStorage.loadFromStorageWatched();
   }
-  if (libraryBtn.classList.contains('accent-btn') && btnQueue.classList.contains('is-active')) {
+  if (
+    libraryBtn.classList.contains('accent-btn') &&
+    btnQueue.classList.contains('is-active')
+  ) {
     renderingFromStorage.loadFromStorageQueue();
   }
 }

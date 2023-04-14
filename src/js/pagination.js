@@ -1,9 +1,7 @@
-
-//імпорт асинхронної функції феч з отриманням даних з сервера 
-import cardTemplate from '../templates/cardTemplate.hbs'
-import NewApiService from './api-servis'
-const newApiService = new NewApiService()
-
+//імпорт асинхронної функції феч з отриманням даних з сервера
+import cardTemplate from '../templates/cardTemplate.hbs';
+import NewApiService from './api-servis';
+const newApiService = new NewApiService();
 
 let page = 1;
 let total = 20;
@@ -22,8 +20,8 @@ switchArrow();
 
 //перемикач по кліку на цифри
 
- function addListener(){
-  const liElItems = document.querySelectorAll(".pagination__btn");
+function addListener() {
+  const liElItems = document.querySelectorAll('.pagination__btn');
 
   for (const liElItem of liElItems) {
     if (liElItem.classList.contains('pagination__points')) {
@@ -37,22 +35,19 @@ switchArrow();
       renderPagination(page, total);
 
       addListener();
-      switchArrow ();
-    })
-  } 
-
+      switchArrow();
+    });
+  }
 }
 
 //перемикач по кліку на <>
 
-function switchArrow (){
-  const jsBtnArrows = document.querySelectorAll(".js-arrow");
-  
-  for (const jsBtnArrow of jsBtnArrows){
-    jsBtnArrow.addEventListener ('click', (e) => {
-  
-      if (jsBtnArrow.classList.contains("pagination__arrow-left")) {
+function switchArrow() {
+  const jsBtnArrows = document.querySelectorAll('.js-arrow');
 
+  for (const jsBtnArrow of jsBtnArrows) {
+    jsBtnArrow.addEventListener('click', e => {
+      if (jsBtnArrow.classList.contains('pagination__arrow-left')) {
         page = page - 1;
         newApiService.pageNum = page;
         reseter();
@@ -62,9 +57,8 @@ function switchArrow (){
         addListener();
       }
 
-      
-      if (jsBtnArrow.classList.contains("pagination__arrow-right")) {
-        page = page + 1
+      if (jsBtnArrow.classList.contains('pagination__arrow-right')) {
+        page = page + 1;
 
         newApiService.pageNum = page;
         reseter();
@@ -79,7 +73,6 @@ function switchArrow (){
 
 // відбудова карток
 function mainContent() {
-  const pageMainContent = document.querySelector('.main-content');
   newApiService.fetchPopularMovies().then(({ results }) => {
     results.map(result => {
       const { poster_path, original_title, genre_ids, release_date, id } =
@@ -97,16 +90,12 @@ function mainContent() {
       container.insertAdjacentHTML('beforeend', mk);
     });
   });
-
-}  
+}
 
 //відбудова кнопок
-function renderPagination() { 
-
-  
-
+function renderPagination() {
   if (total < 6) {
-    if (page != 1) { 
+    if (page != 1) {
       markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
     }
     for (let p = 1; p <= total; p++) {
@@ -188,8 +177,8 @@ function totalAll() {
   newApiService.fetchPopularMovies().then(res => {
     totalAll = res.total_pages;
 
-    totalPage(totalAll)
-  })
+    totalPage(totalAll);
+  });
 
   function totalPage() {
     if (totalAll > 500) {
@@ -198,5 +187,4 @@ function totalAll() {
       total = totalAll;
     }
   }
-} 
-
+}
