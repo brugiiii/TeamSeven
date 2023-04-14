@@ -50,17 +50,15 @@ function deleteFromStorage(array, key, keyValue, event) {
 }
 
 function refreshPage() {
-  if (
-    libraryBtn.classList.contains('accent-btn') &&
-    btnWatched.classList.contains('is-active')
-  ) {
-    renderingFromStorage.loadFromStorageWatched();
+  if (libraryBtn.classList.contains('accent-btn')){
+    if (btnWatched.classList.contains('is-active')) {
+      renderingFromStorage.loadFromStorageWatched();
+    }
+    else if (btnQueue.classList.contains('is-active')) {
+      renderingFromStorage.loadFromStorageQueue();
+    }
+    else {
+      renderingFromStorage.loadFromStorageWatched();
+    }
   }
-  if (
-    libraryBtn.classList.contains('accent-btn') &&
-    btnQueue.classList.contains('is-active')
-  ) {
-    renderingFromStorage.loadFromStorageQueue();
-  }
-  
 }
