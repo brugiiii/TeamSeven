@@ -45,6 +45,7 @@ export async function onFormSubmit(e) {
         moviesServiceByName.page = currentPage;
         moviesServiceByName.fetchMoviesByName().then(renderMoviesMarkup);
       });
+      refs.moviesSearchForm.reset();
     } catch (error) {
       console.log(error);
     }
