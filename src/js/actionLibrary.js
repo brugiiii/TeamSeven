@@ -4,8 +4,6 @@ import { load, storageKeys } from './localStorage';
 
 import cardTemplate from '../templates/cardTemplateLibrary.hbs';
 
-import cardTemplate from '../templates/cardTemplate.hbs';
-
 import { numberOfGeneras, ganreListProcessin } from './searchByKeyword';
 
 const newLoader = new NewLoader();
