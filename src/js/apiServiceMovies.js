@@ -28,9 +28,6 @@ export class MoviesServiceByName {
           `Nothing was found for your '${this.searchQuery}' request`
         );
 
-        stopLoader();
-        refs.moviesSearchForm.reset();
-        refs.galleryList.innerHTML = '';
         return;
       }
       return response;
