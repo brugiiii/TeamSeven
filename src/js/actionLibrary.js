@@ -1,7 +1,11 @@
 import NewLoader from './loader';
 import * as renderingFromStorage from './renderFromStorage';
 import { load, storageKeys } from './localStorage';
+
+import cardTemplate from '../templates/cardTemplateLibrary.hbs';
+
 import cardTemplate from '../templates/cardTemplate.hbs';
+
 import { numberOfGeneras, ganreListProcessin } from './searchByKeyword';
 
 const newLoader = new NewLoader();
@@ -13,8 +17,20 @@ const refs = {
 
 ganreListProcessin().then(fetchData);
 
-refs.btnWatched.addEventListener('click', renderingFromStorage.loadFromStorageWatched);
-refs.btnQueue.addEventListener('click', renderingFromStorage.loadFromStorageQueue);
+refs.btnWatched.addEventListener('click', evt => {
+  refs.btnWatched.classList.add('is-active');
+  refs.btnQueue.classList.remove('is-active');
+  renderingFromStorage.loadFromStorageWatched();
+});
+
+refs.btnQueue.addEventListener('click', evt => {
+  refs.btnQueue.classList.add('is-active');
+  refs.btnWatched.classList.remove('is-active');
+  renderingFromStorage.loadFromStorageQueue();
+});
+//refs.btnWatched.addEventListener('click', renderingFromStorage.loadFromStorageWatched);
+//refs.btnQueue.addEventListener('click', renderingFromStorage.loadFromStorageQueue);
+
 
 async function fetchData(genresBase) {
   try {

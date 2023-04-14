@@ -1,10 +1,12 @@
 import { load, storageKeys } from './localStorage';
+
 import cardTemplate from '../templates/cardTemplate.hbs';
 import { numberOfGeneras, ganreListProcessin } from './searchByKeyword';
 import NewLoader from './loader';
 import NewApiService from './api-servis';
 
 const newLoader = new NewLoader();
+
 
 
 export const loadFromStorageWatched = () => {
@@ -52,8 +54,10 @@ export function updateMarkupLibrary(results) {
           id,
         });
   
+
         // const container = document.querySelector('.main-content');
         // container.innerHTML = '';
+
         container.insertAdjacentHTML('beforeend', mk);
       });
      
