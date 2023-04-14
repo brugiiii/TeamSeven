@@ -1,0 +1,13 @@
+import './sass/index.scss';
+import './js/apiServiceMovies';
+import './js/renderFilms';
+import './js/start';
+import './js/onSearchByTrend';
+import './js/onSearchByName';
+import './js/loader';
+import './js/modalFilm';
+import './js/upToTop';
+import './js/teamModal';
+import './js/addMovieToLibriary';
+import './js/fetchMovieTrailer';
+import './js/trailer';

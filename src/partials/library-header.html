@@ -1,0 +1,56 @@
+<header class="header">
+  <div class="header__container container">
+    <div class="header__background">
+      <div class="header__wrapper">
+        <div class="header__btn-top">
+          <button class="header__btn-watched button" type="button">
+            WATCHED
+          </button>
+          <button
+            class="header__btn-queue button header__btn-category--current"
+            type="button"
+          >
+            QUEUE
+          </button>
+        </div>
+        <div class="header__btn-wrapper">
+          <a href="./index.html" class="header__btn-home button">
+            HOME
+          </a>
+          <a href="./my-library.html" class="header__btn-library button current">
+            MY LIBRARY
+          </a>
+        </div>
+        <form class="header__form" id="library_submit">
+          <input
+            class="header__form-input"
+            name="query"
+            type="text"
+            placeholder="Movie Search"
+            autocomplete="off"
+          />
+          <button class="header__form-btn button" type="submit" >
+            <svg class="header__form-svg">
+              <use href="./images/icons/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </form>
+        <p class="header__notifier is-hidden">Search result not successful. Enter the correct movie name.</p>
+      </div>
+      <div class="header__btn-bottom">
+        <div class="header__btn">
+          <button class="header__btn-watched button " type="button">
+            WATCHED
+          </button>
+          <button class="header__btn-queue button header__btn-category--current"  type="button">QUEUE</button>
+        </div>
+        <a class="header__logo-link" href="./index.html">
+          <svg class="header__film-svg">
+            <use href="./images/icons/sprite.svg#film"></use>
+          </svg>
+          <h1 class="header__title focus-in-expand-fwd">Filmoteka</h1>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

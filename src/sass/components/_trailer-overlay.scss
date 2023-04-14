@@ -1,0 +1,87 @@
+.trailer-overlay {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.475);
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.modal__card-thumb:hover .trailer-overlay {
+  opacity: 1;
+}
+
+.trailer-btn {
+  display: block;
+  width: 70px;
+  height: 49px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-image: url('../images/icons/youtube-logo.svg');
+  background-size: contain;
+  background-color: red;
+  background-position: center;
+  transition: transform 0.25s ease-in;
+}
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0px 0px 60px 9px rgba(255, 255, 255, 1);
+  }
+  50% {
+    box-shadow: 0px 0px 60px 28px rgba(255, 255, 255, 1);
+  }
+  100% {
+    box-shadow: 0px 0px 60px 9px rgba(255, 255, 255, 1);
+  }
+}
+
+.modal__card-thumb:hover .trailer-btn {
+  animation: glowing 3s infinite;
+}
+
+.trailer-btn:hover {
+  transform: scale(0.8);
+}
+
+.trailer-video {
+  position: absolute;
+  top: 0;
+}
+
+.trailer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.856);
+}
+
+.trailer-window {
+  max-height: 50vh;
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    max-height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 760px;
+    height: 427px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 1000px;
+    height: 562px;
+  }
+}

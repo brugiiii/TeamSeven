@@ -1,190 +1,200 @@
-//імпорт асинхронної функції феч з отриманням даних з сервера
-import cardTemplate from '../templates/cardTemplate.hbs';
-import NewApiService from './api-servis';
-const newApiService = new NewApiService();
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
+import '../sass/components/_my-library.scss';
+import '../sass/components/_img-library.scss';
+import { refs } from './refs';
+import { startLoader, stopLoader } from './loader';
 
-let page = 1;
-let total = 20;
-let markup = '';
-const LEFT_ARROW = `<svg class="pagination__icon-left"></svg>`;
-const RIGHT_ARROW = `<svg class="pagination__icon-rigth"></svg>`;
+const paginationElement = document.getElementById('pagination');
 
-const pagePag = document.querySelector('.pagination');
-const pageMainContent = document.querySelector('.main-content');
-
-totalAll();
-mainContent();
-renderPagination(page, total);
-addListener();
-switchArrow();
-
-//перемикач по кліку на цифри
-
-function addListener() {
-  const liElItems = document.querySelectorAll('.pagination__btn');
-
-  for (const liElItem of liElItems) {
-    if (liElItem.classList.contains('pagination__points')) {
-      continue;
-    }
-    liElItem.addEventListener('click', e => {
-      pageNum(liElItem.textContent * 1);
-      newApiService.pageNum = page;
-      reseter();
-      mainContent();
-      renderPagination(page, total);
-
-      addListener();
-      switchArrow();
-    });
-  }
-}
-
-//перемикач по кліку на <>
-
-function switchArrow() {
-  const jsBtnArrows = document.querySelectorAll('.js-arrow');
-
-  for (const jsBtnArrow of jsBtnArrows) {
-    jsBtnArrow.addEventListener('click', e => {
-      if (jsBtnArrow.classList.contains('pagination__arrow-left')) {
-        page = page - 1;
-        newApiService.pageNum = page;
-        reseter();
-        mainContent();
-        renderPagination(page, total);
-        switchArrow();
-        addListener();
-      }
-
-      if (jsBtnArrow.classList.contains('pagination__arrow-right')) {
-        page = page + 1;
-
-        newApiService.pageNum = page;
-        reseter();
-        mainContent();
-        renderPagination(page, total);
-        switchArrow();
-        addListener();
-      }
-    });
-  }
-}
-
-// відбудова карток
-function mainContent() {
-  newApiService.fetchPopularMovies().then(({ results }) => {
-    results.map(result => {
-      const { poster_path, original_title, genre_ids, release_date, id } =
-        result;
-      const genres = genre_ids.join(', ');
-      const date = release_date.slice(0, 4);
-      const mk = cardTemplate({
-        poster_path,
-        original_title,
-        genres,
-        date,
-        id,
-      });
-      const container = document.querySelector('.main-content');
-      container.insertAdjacentHTML('beforeend', mk);
-    });
-  });
-}
-
-//відбудова кнопок
-function renderPagination() {
-  if (total < 6) {
-    if (page != 1) {
-      markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
-    }
-    for (let p = 1; p <= total; p++) {
-      console.log(total);
-      if (p === page) {
-        markup += `<li class="pagination__btn pagination__btn-active ">${page}</li>`;
-      } else {
-        markup += `<li class="pagination__btn ">${p}</li>`;
-      }
-    }
+function renderMovieCardsToWatched() {
+  startLoader();
+  let moviesInWatched = JSON.parse(localStorage.getItem('watched')) || [];
+  if (moviesInWatched.length === 0) {
+    const ul = document.querySelector('.gallery-list');
+    const markup = `<li class="img-library"><span class="text-library">Please select a movie on the main page</span></li>`;
+    ul.innerHTML = markup;
+    paginationElement.style.display = 'none';
+    stopLoader();
   } else {
-    if (page < 4) {
-      if (page != 1) {
-        markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
-      }
-      for (let p = 1; p <= page + 2; p++) {
-        if (p === page) {
-          markup += `<li class="pagination__btn pagination__btn-active ">${page}</li>`;
-        } else {
-          markup += `<li class="pagination__btn ">${p}</li>`;
-        }
-      }
-      markup += `<li class="pagination__btn pagination__points">...</li>`;
-      markup += `<li class="pagination__btn ">${total}</li>`;
-      markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;
-    } else {
-      if (page > total - 3) {
-        markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
-        markup += `<li class="pagination__btn ">1</li>`;
-        markup += `<li class="pagination__btn pagination__points">...</li>`;
-        for (let p = page - 2; p <= total; p = p + 1) {
-          if (p === page) {
-            markup += `<li class="pagination__btn pagination__btn-active ">${page}</li>`;
-          } else {
-            markup += `<li class="pagination__btn ">${p}</li>`;
+    const DEFAULT_POSTER_URL =
+      'https://motivatevalmorgan.com/wp-content/uploads/2016/06/default-movie.jpg';
+    paginationElement.style.display = 'flex';
+    const itemsPerPage = 20;
+    const totalItems = moviesInWatched.length;
+   
+    const ul = document.querySelector('.gallery-list');
+
+    // Create the pagination instance and attach the event listener
+
+    const pagination = new Pagination(paginationElement, {
+      totalItems: totalItems,
+      itemsPerPage: itemsPerPage,
+      visiblePages: 5,
+      page: 1,
+      centerAlign: true,
+      firstItemClassName: 'tui-first-child',
+      lastItemClassName: 'tui-last-child',
+      template: {
+        page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+        currentPage:
+          '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+
+        disabledMoveButton:
+          '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+          '</span>',
+        moreButton:
+          '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+          '<span class="tui-ico-ellip">...</span>' +
+          '</a>',
+      },
+      usageStatistics: false,
+    });
+    pagination.on('afterMove', function (eventData) {
+      ul.innerHTML = '';
+
+      const startIdx = (eventData.page - 1) * itemsPerPage;
+      const endIdx = startIdx + itemsPerPage;
+
+      const data = moviesInWatched;
+
+      const moviesArray = data.slice(startIdx, endIdx);
+
+      const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+      const markup = moviesArray
+        .map(({ poster_path, title, genres, id, release_date }) => {
+          const date = release_date.split('').splice(0, 4).join('');
+          let genresToShow = '';
+          const genresCount = genres.length;
+          const posterUrl = poster_path
+            ? `${IMG_URL}${poster_path}`
+            : DEFAULT_POSTER_URL;
+
+          if (genresCount === 1) {
+            genresToShow = `${genres[0].name}`;
+          } else if (genresCount === 2) {
+            genresToShow = `${genres[0].name}, ${genres[1].name}`;
+          } else if (genresCount > 2) {
+            genresToShow = `${genres[0].name}, ${genres[1].name}, other`;
           }
-        }
-        if (total === page) {
-          markup += `<button class="pagination__arrow-right js-arrow pagination__arrow-hiden">${RIGHT_ARROW}</button>`;
-        } else {
-          markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;
-        }
-      } else {
-        if (page <= total - 3) {
-          markup += `<button class="pagination__arrow-left js-arrow">${LEFT_ARROW}</button>`;
-          markup += `<li class="pagination__btn ">1</li>`;
-          markup += `<li class="pagination__btn pagination__points">...</li>`;
-          for (let p = page - 2; p <= page + 2; p = p + 1) {
-            if (p === page) {
-              markup += `<li class="pagination__btn pagination__btn-active ">${page}</li>`;
-            } else {
-              markup += `<li class="pagination__btn ">${p}</li>`;
-            }
+
+          return `<li class="film-card">
+      <a href="modal-film.html" class="film-card__link" >
+        <div class="film-card__img">
+          <img src="${posterUrl}" alt="${title}" loading="lazy" data-id="${id}"/>
+        </div>
+        <div class="film-card__info">
+          <p class="film-card__title">${title}</p>
+          <p class="film-card__description">${genresToShow} | ${date}</p>
+        </div>
+      </a>
+    </li>`;
+        })
+        .join('');
+
+      refs.galleryList.innerHTML = markup;
+      stopLoader();
+    });
+
+    // Load the first page when the page is loaded
+
+    pagination.movePageTo(1);
+  }
+}
+// Render the markup only when the user clicks on a page link
+function renderMovieCardsToQueue() {
+  startLoader();
+  let moviesInQueue = JSON.parse(localStorage.getItem('queue')) || [];
+  if (moviesInQueue.length === 0) {
+    const ul = document.querySelector('.gallery-list');
+    const markup = `<li class="img-library"><span class="text-library">Please select a movie on the main page</span></li>`;
+    ul.innerHTML = markup;
+    paginationElement.style.display = 'none';
+    stopLoader();
+  } else {
+    const DEFAULT_POSTER_URL =
+      'https://motivatevalmorgan.com/wp-content/uploads/2016/06/default-movie.jpg';
+
+    const itemsPerPage = 20;
+    const totalItems = moviesInQueue.length;
+    const ul = document.querySelector('.gallery-list');
+    paginationElement.style.display = 'flex';
+    // Create the pagination instance and attach the event listener
+
+    const pagination = new Pagination(paginationElement, {
+      totalItems: totalItems,
+      itemsPerPage: itemsPerPage,
+      visiblePages: 5,
+      page: 1,
+      centerAlign: true,
+      firstItemClassName: 'tui-first-child',
+      lastItemClassName: 'tui-last-child',
+      template: {
+        page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+        currentPage:
+          '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+
+        disabledMoveButton:
+          '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+          '</span>',
+        moreButton:
+          '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+          '<span class="tui-ico-ellip">...</span>' +
+          '</a>',
+      },
+      usageStatistics: false,
+    });
+    pagination.on('afterMove', function (eventData) {
+      ul.innerHTML = '';
+      stopLoader();
+
+      const startIdx = (eventData.page - 1) * itemsPerPage;
+      const endIdx = startIdx + itemsPerPage;
+
+      const data = moviesInQueue;
+
+      const moviesArray = data.slice(startIdx, endIdx);
+
+      const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+      const markup = moviesArray
+        .map(({ poster_path, title, genres, id, release_date }) => {
+          const date = release_date.split('').splice(0, 4).join('');
+          let genresToShow = '';
+          const genresCount = genres.length;
+          const posterUrl = poster_path
+            ? `${IMG_URL}${poster_path}`
+            : DEFAULT_POSTER_URL;
+
+          if (genresCount === 1) {
+            genresToShow = `${genres[0].name}`;
+          } else if (genresCount === 2) {
+            genresToShow = `${genres[0].name}, ${genres[1].name}`;
+          } else if (genresCount > 2) {
+            genresToShow = `${genres[0].name}, ${genres[1].name}, other`;
           }
-          markup += `<li class="pagination__btn pagination__points">...</li>`;
-          markup += `<li class="pagination__btn ">${total}</li>`;
-          markup += `<button class="pagination__arrow-right js-arrow">${RIGHT_ARROW}</button>`;
-        }
-      }
-    }
-  }
-  pagePag.innerHTML = markup;
-  markup = '';
-}
 
-//очистка
-function reseter() {
-  pagePag.innerHTML = '';
-  pageMainContent.innerHTML = '';
-}
+          return `<li class="film-card">
+      <a href="modal-film.html" class="film-card__link" >
+        <div class="film-card__img">
+          <img src="${posterUrl}" alt="${title}" loading="lazy" data-id="${id}"/>
+        </div>
+        <div class="film-card__info">
+          <p class="film-card__title">${title}</p>
+          <p class="film-card__description">${genresToShow} | ${date}</p>
+        </div>
+      </a>
+    </li>`;
+        })
+        .join('');
 
-//оновлення нумерації по 'click'
-function pageNum(newPage) {
-  page = newPage;
-}
+      refs.galleryList.innerHTML = markup;
+    });
 
-//функція додавання № кінцевої сторінки
-function totalAll() {
-  newApiService.fetchPopularMovies().then(res => {
-    totalAll = res.total_pages;
-
-    totalPage(totalAll);
-  });
-
-  function totalPage() {
-    if (totalAll > 500) {
-      total = 500;
-    } else {
-      total = totalAll;
-    }
+    // Load the first page when the page is loaded
+    pagination.movePageTo(1);
   }
 }
+
+export { renderMovieCardsToQueue, renderMovieCardsToWatched };

@@ -1,0 +1,55 @@
+.tui-is-selected {
+    background-color: var(--current-color); /* Цвет фона - красный */
+    color: var(--primary-text-color); /* Цвет текста - белый */
+    padding: 5px; /* Отступы внутри кнопки */
+    border-radius: 5px; /* Закругление углов */
+    border: none; /* Убрать бордер */
+  }
+  .tui-pagination .tui-page-btn .tui-last {
+    display: none;
+  }
+  .tui-pagination .tui-page-btn {
+    border: none; /* Убрать бордер */
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 4px;
+    display: inline-flex;
+    &:last-child {
+        margin-right: 0px;
+    }
+  }
+  .tui-pagination .tui-last {
+    @media screen and ( max-width: 767px ) {
+      display: none;
+    }
+  }
+  
+  .tui-pagination .tui-first {
+    @media screen  and ( max-width: 767px ) {
+      display: none;
+    }
+  }
+  
+  .tui-pagination .tui-is-selected, .tui-pagination strong {
+    background-color: var(--current-color);
+  }
+  .tui-pagination .tui-is-selected:hover {
+    background-color: var(--current-color);
+  }
+  .tui-pagination .tui-first-child.tui-is-selected {
+    border-left: none;
+}
+.tui-pagination .tui-last-child.tui-is-selected {
+    border-right: none;
+}
+  .tui-pagination {
+    display: flex; /* Устанавливаем контейнеру режим отображения "flex" */
+    justify-content: center; /* Выравниваем элементы по горизонтали по центру */
+  }
+  .tui-pagination .tui-ico-ellip  {
+    margin-top: 0;
+  }

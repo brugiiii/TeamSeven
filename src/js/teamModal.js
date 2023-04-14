@@ -1,6 +1,6 @@
 const refs = {
   closeBtn: document.querySelector('.teamModal__closeBtn'),
-  openBtn: document.querySelector('.team-text__link'),
+  openBtn: document.querySelector('.about-team'),
   backdropEl: document.querySelector('.backdrop.teamModal'),
   bodyEl: document.querySelector('body'),
 };
@@ -11,6 +11,7 @@ refs.openBtn.addEventListener('click', onOpenBtn);
 function onOpenBtn(e) {
   e.preventDefault();
   refs.backdropEl.classList.remove('is-hidden');
+  console.log(refs.backdropEl.classList);
 
   refs.bodyEl.addEventListener('keydown', onEscBtn);
   refs.bodyEl.addEventListener('click', onBackdrop);
@@ -18,7 +19,7 @@ function onOpenBtn(e) {
 }
 
 function onBackdrop(e) {
-  if (e.target.tagName !== 'IMG' && e.target.tagName !== 'A') {
+  if (e.target.tagName !== 'IMG' && e.target.tagName !== 'SPAN') {
     closeModal();
     refs.bodyEl.removeEventListener('click', onBackdrop);
   }
