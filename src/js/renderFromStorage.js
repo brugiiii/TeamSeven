@@ -1,13 +1,11 @@
 import { load, storageKeys } from './localStorage';
 
-import cardTemplate from '../templates/cardTemplate.hbs';
+import cardTemplate from '../templates/cardTemplateLibrary.hbs';
 import { numberOfGeneras, ganreListProcessin } from './searchByKeyword';
 import NewLoader from './loader';
 import NewApiService from './api-servis';
 
 const newLoader = new NewLoader();
-
-
 
 export const loadFromStorageWatched = () => {
   const results = load(storageKeys.WATCHED) || [];
