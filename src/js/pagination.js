@@ -3,6 +3,10 @@ import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
 const newApiService = new NewApiService();
 
+
+import { numberOfGeneras, ganreListProcessin } from './searchByKeyword';
+ї
+
 let page = 1;
 let total = 20;
 let markup = '';
@@ -13,7 +17,7 @@ const pagePag = document.querySelector('.pagination');
 const pageMainContent = document.querySelector('.main-content');
 
 totalAll();
-mainContent();
+ganreListProcessin().then(fetchData);
 renderPagination(page, total);
 addListener();
 switchArrow();
@@ -28,14 +32,18 @@ function addListener() {
       continue;
     }
     liElItem.addEventListener('click', e => {
+      // if (liElItem) {
       pageNum(liElItem.textContent * 1);
       newApiService.pageNum = page;
       reseter();
-      mainContent();
+      ganreListProcessin().then(fetchData);
       renderPagination(page, total);
 
       addListener();
       switchArrow();
+
+      // }
+
     });
   }
 }
@@ -51,7 +59,7 @@ function switchArrow() {
         page = page - 1;
         newApiService.pageNum = page;
         reseter();
-        mainContent();
+        ganreListProcessin().then(fetchData);
         renderPagination(page, total);
         switchArrow();
         addListener();
@@ -62,7 +70,7 @@ function switchArrow() {
 
         newApiService.pageNum = page;
         reseter();
-        mainContent();
+        ganreListProcessin().then(fetchData);
         renderPagination(page, total);
         switchArrow();
         addListener();
@@ -72,25 +80,62 @@ function switchArrow() {
 }
 
 // відбудова карток
-function mainContent() {
-  newApiService.fetchPopularMovies().then(({ results }) => {
-    results.map(result => {
-      const { poster_path, original_title, genre_ids, release_date, id } =
-        result;
-      const genres = genre_ids.join(', ');
-      const date = release_date.slice(0, 4);
-      const mk = cardTemplate({
-        poster_path,
-        original_title,
-        genres,
-        date,
-        id,
-      });
-      const container = document.querySelector('.main-content');
-      container.insertAdjacentHTML('beforeend', mk);
+
+function fetchData(genresBase) {
+  try {
+    newApiService.fetchPopularMovies().then(({ results }) => {
+      const mk = results.map(
+        ({ poster_path, original_title, genre_ids, release_date, id }) => {
+          const date = release_date.slice(0, 4);
+          console.log(date);
+          const genres = [...genresBase.genres];
+          const genreIds = genre_ids;
+          let genresNames = [];
+          const other = 'Other';
+
+          for (let i = 0; i < genreIds.length; i++) {
+            const genre = genres.find(g => g.id === genreIds[i]);
+            genresNames.push(genre.name);
+          }
+
+          let currentGanre = null;
+          if (genresNames.length < numberOfGeneras) {
+            currentGanre = genresNames.join(',  ');
+          } else {
+            currentGanre = [...genresNames.slice(0, 2), other].join(', ');
+          }
+          return { poster_path, original_title, currentGanre, date, id };
+        }
+      );
+      const marKup = cardTemplate({ mk });
+      pageMainContent.innerHTML = marKup;
     });
-  });
+  } catch (error) {
+    console.error('Помилка під час отримання даних:', error);
+  }
 }
+// function mainContent() {
+//   const pageMainContent = document.querySelector('.main-content');
+//   newApiService.fetchPopularMovies().then(({ results }) => {
+//     console.log(results);
+//     results.map(result => {
+//       const { poster_path, original_title, genre_ids, release_date, id } =
+//         result;
+//       const genres = genre_ids.join(', ');
+//       const date = release_date.slice(0, 4);
+//       const mk = cardTemplate({
+//         poster_path,
+//         original_title,
+//         genres,
+//         date,
+//         id,
+//       });
+//       const container = document.querySelector('.main-content');
+//       container.insertAdjacentHTML('beforeend', mk);
+//     });
+//   });
+// }
+
 
 //відбудова кнопок
 function renderPagination() {
