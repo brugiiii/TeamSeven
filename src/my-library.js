@@ -3,7 +3,7 @@ import './js/apiServiceMovies';
 import './js/renderFilms';
 import './js/loader';
 import './js/renderMovieCardsToLibriary';
-import './js/pagination';
+
 import './js/upToTop';
 import './js/teamModal';
 import './js/addMovieToLibriary';

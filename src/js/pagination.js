@@ -22,7 +22,7 @@ function renderMovieCardsToWatched() {
     paginationElement.style.display = 'flex';
     const itemsPerPage = 20;
     const totalItems = moviesInWatched.length;
-   
+
     const ul = document.querySelector('.gallery-list');
 
     // Create the pagination instance and attach the event listener
