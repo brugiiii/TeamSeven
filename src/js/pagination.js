@@ -3,9 +3,7 @@ import cardTemplate from '../templates/cardTemplate.hbs';
 import NewApiService from './api-servis';
 const newApiService = new NewApiService();
 
-
 import { numberOfGeneras, ganreListProcessin } from './searchByKeyword';
-ї
 
 let page = 1;
 let total = 20;
@@ -43,7 +41,6 @@ function addListener() {
       switchArrow();
 
       // }
-
     });
   }
 }
@@ -81,9 +78,9 @@ function switchArrow() {
 
 // відбудова карток
 
-function fetchData(genresBase) {
+async function fetchData(genresBase) {
   try {
-    newApiService.fetchPopularMovies().then(({ results }) => {
+    await newApiService.fetchPopularMovies().then(({ results }) => {
       const mk = results.map(
         ({ poster_path, original_title, genre_ids, release_date, id }) => {
           const date = release_date.slice(0, 4);
@@ -135,7 +132,6 @@ function fetchData(genresBase) {
 //     });
 //   });
 // }
-
 
 //відбудова кнопок
 function renderPagination() {
