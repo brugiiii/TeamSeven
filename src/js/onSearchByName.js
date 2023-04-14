@@ -1,4 +1,4 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import Notiflix from 'notiflix';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 
@@ -7,6 +7,7 @@ import { startLoader, stopLoader } from './loader';
 import { refs } from './refs';
 import { MoviesServiceByName } from './apiServiceMovies';
 
+Notiflix.Notify.init({ position: 'center-top' });
 refs.moviesSearchForm.addEventListener('submit', onFormSubmit);
 
 const moviesServiceByName = new MoviesServiceByName({
@@ -25,7 +26,7 @@ export async function onFormSubmit(e) {
   moviesServiceByName.query = searchQuery;
 
   if (searchQuery === '') {
-    Notify.info('Enter something');
+    Notiflix.Notify.info('Enter something');
     stopLoader();
     return;
   } else {

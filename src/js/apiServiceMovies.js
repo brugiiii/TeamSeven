@@ -1,11 +1,13 @@
 import axios from 'axios';
 import throttle from 'lodash.throttle';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import Notiflix from 'notiflix';
 
 import { refs } from './refs';
 
 import { renderMoviesMarkup } from './renderFilms';
 import { startLoader, stopLoader } from './loader';
+
+Notiflix.Notify.init({ position: 'center-top' });
 
 export class MoviesServiceByName {
   constructor(options) {
@@ -22,7 +24,9 @@ export class MoviesServiceByName {
         `${options.BASE_URL}3/search/movie?api_key=${options.API_KEY}&include_adult=false&query=${this.searchQuery}&page=${this.page}`
       );
       if (response.data.results.length === 0) {
-        Notify.info(`Nothing was found for your '${this.searchQuery}' request`);
+        Notiflix.Notify.info(
+          `Nothing was found for your '${this.searchQuery}' request`
+        );
 
         return;
       }
