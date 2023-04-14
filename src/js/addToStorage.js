@@ -36,11 +36,7 @@ function saveToStorage(array, key, keyValue, event) {
   }
   event.target.innerText = `REMOVE FROM ${keyValue}`;
 
-  refreshPage(keyValue);
-
-  if (libraryBtn.classList.contains('accent-btn')) {
-    renderingFromStorage.loadFromStorageWatched();
-  }
+  refreshPage();
 }
 
 function deleteFromStorage(array, key, keyValue, event) {
@@ -50,14 +46,10 @@ function deleteFromStorage(array, key, keyValue, event) {
   save(key, filteredMovie);
   event.target.innerText = `ADD TO ${keyValue}`;
 
-  refreshPage(keyValue);
-
-  if (libraryBtn.classList.contains('accent-btn')) {
-    renderingFromStorage.loadFromStorageQueue();
-  }
+  refreshPage();
 }
 
-function refreshPage(keyValue) {
+function refreshPage() {
   if (
     libraryBtn.classList.contains('accent-btn') &&
     btnWatched.classList.contains('is-active')
@@ -70,4 +62,5 @@ function refreshPage(keyValue) {
   ) {
     renderingFromStorage.loadFromStorageQueue();
   }
+  
 }
